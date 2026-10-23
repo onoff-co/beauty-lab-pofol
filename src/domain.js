@@ -7,9 +7,25 @@ const aliases = {
 };
 export function normalizeRoute(hash) {
   try {
-    const route = decodeURIComponent(hash.replace(/^#\/?/, '')).replace(/\/$/, '') || 'home';
-    return aliases[route] || route;
+    const [raw,...query] = hash.replace(/^#\/?/, '').split('?');
+    const route = decodeURIComponent(raw).replace(/\/$/, '') || 'home';
+    return (aliases[route] || route) + (query.length ? `?${query.join('?')}` : '');
   } catch { return 'not-found'; }
+}
+export function parseRoute(route) {
+  const normalized = normalizeRoute(route);
+  const index = normalized.indexOf('?');
+  return {path:index<0?normalized:normalized.slice(0,index),params:new URLSearchParams(index<0?'':normalized.slice(index+1))};
+}
+export function routeTo(path, values = {}) {
+  const params = new URLSearchParams(Object.entries(values).filter(([,value])=>value!==undefined&&value!==null&&value!==''&&value!=='all'));
+  return path + (params.size?`?${params}`:'');
+}
+export function supportedRoute(path) {
+  return /^(home|privacy|about(?:\/(instructors|facilities))?|courses(?:\/[a-z-]+(?:\/[a-z-]+)?)?|online(?:\/[a-z-]+(?:\/[a-z-]+)?)?|schedule(?:\/(weekday|weekend)|\/class\/[a-z-]+)?|support(?:\/(courses|process))?|community(?:\/(notices|portfolio|stories)(?:\/[a-z0-9-]+)?)?|contact(?:\/(visit|tuition))?|classroom(?:\/[a-z-]+(?:\/[a-z-]+)?)?|account(?:\/login)?|admin(?:\/(members|inquiries|notices))?)$/.test(path);
+}
+export function safeReturnRoute(value) {
+  return value && /^(online|classroom)(\/|$)/.test(value) && supportedRoute(value) ? value : 'classroom';
 }
 export function validateInquiry(values) {
   const errors = {};

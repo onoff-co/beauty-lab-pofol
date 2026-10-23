@@ -7,10 +7,14 @@ import {
   SectionTitle,
   useAcademy,
 } from "../components.jsx";
-import { toggleCompletion } from "../domain.js";
-import { NotFound } from "./Education.jsx";
+import { safeReturnRoute, routeTo } from "../domain.js";
+import { sessionById } from "../scheduleData.js";
+import { lessonsForCourse } from "../onlineData.js";
+import { OnlinePage } from "./Online.jsx";
+import NotFound from "./NotFound.jsx";
 
-export function AccountPage({ login = false }) {
+export function AccountPage({ login = false, returnTo }) {
+  const destination=safeReturnRoute(returnTo);
   const { user, setUser, members, setMembers } = useAcademy();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -35,6 +39,7 @@ export function AccountPage({ login = false }) {
     setMembers((rows) => [...rows, member]);
     setUser(member);
     setError("");
+    window.location.hash=destination;
   }
   return (
     <Page title={login ? "수강생 로그인" : "회원가입"}>
@@ -54,7 +59,7 @@ export function AccountPage({ login = false }) {
             <>
               <h2>{user.name}님</h2>
               <p>데모 계정으로 이용 중입니다.</p>
-              <LinkButton to="classroom">나의 강의실</LinkButton>
+              <LinkButton to={destination}>{destination==='classroom'?'나의 강의실':'이전 강의로 돌아가기'}</LinkButton>
               <button className="text-link" onClick={() => setUser(null)}>
                 데모 로그아웃
               </button>
@@ -63,12 +68,12 @@ export function AccountPage({ login = false }) {
             <>
               <nav className="tabs">
                 <a
-                  href="#account/login"
+                  href={`#${routeTo('account/login',{returnTo:destination})}`}
                   aria-current={login ? "page" : undefined}
                 >
                   데모 로그인
                 </a>
-                <a href="#account" aria-current={!login ? "page" : undefined}>
+                <a href={`#${routeTo('account',{returnTo:destination})}`} aria-current={!login ? "page" : undefined}>
                   회원가입 데모
                 </a>
               </nav>
@@ -77,7 +82,7 @@ export function AccountPage({ login = false }) {
                   onSubmit={(e) => {
                     e.preventDefault();
                     const member = members.find((m) => m.id === selected);
-                    if (member) setUser(member);
+                    if (member) {setUser(member);window.location.hash=destination;}
                   }}
                 >
                   <label>
@@ -150,6 +155,7 @@ function downloadMaterial(title, text) {
 export function ClassroomPage({ section, lessonId }) {
   const { user, enrollments, completed, setCompleted, history, setHistory } =
     useAcademy();
+  if(lessonId&&['materials','history'].includes(section))return <NotFound/>;
   if (!user && section !== "materials")
     return (
       <Page
@@ -163,7 +169,7 @@ export function ClassroomPage({ section, lessonId }) {
               ? "로그인 후 완료한 온라인 학습 활동을 확인할 수 있습니다."
               : "수강 신청부터 자료 열람, 학습 진도 기록까지 이용할 수 있습니다."}
           </p>
-          <LinkButton to="account/login">수강생 로그인</LinkButton>
+          <LinkButton to={routeTo('account/login',{returnTo:['classroom',section,lessonId].filter(Boolean).join('/')})}>수강생 로그인</LinkButton>
         </div>
       </Page>
     );
@@ -235,116 +241,8 @@ export function ClassroomPage({ section, lessonId }) {
     );
   if (section) {
     const c = courseById(section);
-    if (!c) return <NotFound />;
-    if (!enrollments.includes(section))
-      return (
-        <Page title="수강 신청 안내" group="온라인 강의">
-          <div className="empty">
-            <p>먼저 {c.category} 이론 과정에 데모 수강 신청해주세요.</p>
-            <LinkButton to={`online/${c.id}`}>수강 신청</LinkButton>
-          </div>
-        </Page>
-      );
-    const lesson = lessons.find((l) => l.id === lessonId) || lessons[0];
-    const key = `${c.id}/${lesson.id}`;
-    const done = completed.includes(key);
-    const count = lessons.filter((l) =>
-      completed.includes(`${c.id}/${l.id}`),
-    ).length;
-    const next = lessons[lessons.indexOf(lesson) + 1];
-    function complete() {
-      setCompleted((ids) => toggleCompletion(ids, key));
-      setHistory((rows) => [
-        {
-          id: crypto.randomUUID(),
-          date: new Date().toLocaleString("ko-KR"),
-          title: `${c.category} · ${lesson.title}`,
-          action: done ? "완료 기록 취소" : "온라인 학습 완료",
-        },
-        ...rows,
-      ]);
-    }
-    return (
-      <Page title={`${c.category} 이론 강의실`} group="온라인 강의">
-        <div className="classroom-layout">
-          <aside>
-            <h2>강의 목차</h2>
-            <p>
-              {count} / {lessons.length}개 단원 완료
-            </p>
-            <progress
-              value={count}
-              max={lessons.length}
-              aria-label="수강 진도"
-            />
-            <nav>
-              {lessons.map((l, i) => (
-                <a
-                  key={l.id}
-                  href={`#classroom/${c.id}/${l.id}`}
-                  aria-current={l.id === lesson.id ? "page" : undefined}
-                >
-                  <span>
-                    {i + 1}강 {l.title}
-                  </span>
-                  <small>
-                    {completed.includes(`${c.id}/${l.id}`)
-                      ? "완료"
-                      : `${l.minutes}분`}
-                  </small>
-                </a>
-              ))}
-            </nav>
-            <a className="text-link" href="#classroom">
-              강의실 목록
-            </a>
-          </aside>
-          <article className="lesson-article">
-            <p className="small muted">
-              텍스트 학습 예시 · 실제 영상 강의 아님
-            </p>
-            <h2>{lesson.title}</h2>
-            {lesson.paragraphs.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-            <div className="lesson-task">
-              <h3>학습 기록</h3>
-              <p>
-                내용을 읽고 실습 질문에 답한 뒤 완료를 체크해주세요. 완료 기록은
-                출석·수강 이력에 반영됩니다.
-              </p>
-              <button className="button" onClick={complete}>
-                {done ? "학습 완료 취소" : "학습 완료 표시"}
-              </button>
-              <p role="status">
-                {done
-                  ? "이 단원을 완료했습니다."
-                  : "아직 완료하지 않은 단원입니다."}
-              </p>
-            </div>
-            <div className="button-row">
-              <button
-                className="button secondary"
-                onClick={() =>
-                  downloadMaterial(lesson.title, lesson.paragraphs.join("\n\n"))
-                }
-              >
-                학습 자료 다운로드
-              </button>
-              {next ? (
-                <LinkButton to={`classroom/${c.id}/${next.id}`} secondary>
-                  다음 단원
-                </LinkButton>
-              ) : (
-                <LinkButton to="classroom/history" secondary>
-                  학습 이력 확인
-                </LinkButton>
-              )}
-            </div>
-          </article>
-        </div>
-      </Page>
-    );
+    if (!c || !lessonsForCourse(section).length) return <NotFound/>;
+    return <OnlinePage id={section} lessonId={lessonId}/>;
   }
   return (
     <Page title="나의 강의실" group="온라인 강의">
@@ -358,24 +256,24 @@ export function ClassroomPage({ section, lessonId }) {
         <div className="enrolled-list">
           {enrollments.map((id) => {
             const c = courseById(id);
-            const count = lessons.filter((l) =>
+            const courseLessons=lessonsForCourse(id);
+            const count = courseLessons.filter((l) =>
               completed.includes(`${id}/${l.id}`),
             ).length;
             return (
               <article key={id}>
-                <img src={c.image} alt={`${c.category} 수업`} />
                 <div>
                   <h2>{c.category} 기초 이론</h2>
                   <p>
-                    {count} / {lessons.length}개 단원 완료
+                    {count} / {courseLessons.length}개 강의 완료
                   </p>
                   <progress
                     value={count}
-                    max={lessons.length}
+                    max={courseLessons.length}
                     aria-label={`${c.category} 진도`}
                   />
                 </div>
-                <LinkButton to={`classroom/${id}`}>학습하기</LinkButton>
+                <LinkButton to={`online/${id}/${(courseLessons.find(l=>!completed.includes(`${id}/${l.id}`))||courseLessons[0]).id}`}>이어서 학습</LinkButton>
               </article>
             );
           })}
@@ -493,6 +391,7 @@ export function AdminPage({ section = "inquiries" }) {
                       {courseById(row.course)?.category} · {row.mode}
                     </h2>
                     <p>{row.message || "추가 문의 없음"}</p>
+                    {sessionById(row.session)&&<p className="selected-class"><strong>{sessionById(row.session).title}</strong><span>{sessionById(row.session).start} 개강 · {sessionById(row.session).time}</span></p>}
                     {row.date && <p>방문 희망일 {row.date}</p>}
                   </div>
                   <label>

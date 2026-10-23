@@ -4,6 +4,18 @@ import { courses, lessons, navigation, noticesSeed, portfolio } from '../src/aca
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { courseProfiles } from '../src/courseProfiles.js';
+import { onlineLessons, lessonsForCourse, onlineLessonById } from '../src/onlineData.js';
+
+test('online subjects use distinct verified public video ids and field-specific lessons',()=>{
+  assert.equal(new Set(onlineLessons.map(l=>l.videoId)).size,onlineLessons.length);
+  for(const id of ['makeup','hair','nail','skin']){
+    const rows=lessonsForCourse(id);
+    assert.ok(rows.length>=2);
+    assert.ok(rows.every(row=>row.course===id));
+    for(const row of rows){assert.match(row.videoId,/^[\w-]{11}$/);assert.ok(row.creator&&row.duration&&row.sourceTitle&&row.summary);assert.equal(onlineLessonById(row.id),row);}
+  }
+  assert.equal(onlineLessonById('unknown'),undefined);
+});
 
 test('each beauty field has a unique route, image and full curriculum',()=>{
   assert.equal(new Set(courses.map(c=>c.id)).size,5);

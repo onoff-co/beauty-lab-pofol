@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { assetUrl } from "../assets.js";
 import { courses, portfolio, teachers } from "../academyData.js";
+import { sessions } from "../scheduleData.js";
 import {
   ConsultationForm,
   LinkButton,
@@ -22,9 +23,9 @@ const campaigns = [
   {
     title: "메이크업 실무 클래스",
     description: "웨딩부터 촬영 메이크업까지, 실습으로 익히는 현장 테크닉.",
-    image: assetUrl("/assets/course-makeup.png"),
+    image: assetUrl("/assets/campaign-makeup.png"),
     button: "과정 상세 보기",
-    to: "courses/makeup",
+    to: "courses/makeup/salon",
   },
 ];
 
@@ -138,7 +139,7 @@ export default function Home() {
           {teachers.map((teacher) => (
             <a href="#about/instructors" key={teacher.course}>
               <img
-                src={courses.find((c) => c.id === teacher.course).image}
+                src={assetUrl(`/assets/teacher-home-${teacher.course}.png`)}
                 alt={teacher.role + " 이미지 시안"}
                 loading="lazy"
               />
@@ -189,17 +190,16 @@ export default function Home() {
           <div className="opening-panel">
             <SectionTitle to="schedule">11월 개강일정</SectionTitle>
             <div className="opening-list">
-              {courses
-                .slice(0, 4)
-                .sort((a, b) => a.date.localeCompare(b.date))
+              {sessions
+                .filter(s=>s.track==='certificate').slice(0,4)
                 .map((c) => (
-                  <a key={c.id} href={`#courses/${c.id}`}>
-                    <time dateTime={c.date}>
-                      <b>{c.date.slice(8)}</b>11월
+                  <a key={c.id} href={`#schedule/class/${c.id}`}>
+                    <time dateTime={c.start}>
+                      <b>{c.start.slice(8)}</b>11월
                     </time>
                     <div>
-                      <strong>{c.category} 기초·자격증반</strong>
-                      <p>{c.days}</p>
+                      <strong>{c.title}</strong>
+                      <p>{c.time}</p>
                     </div>
                   </a>
                 ))}

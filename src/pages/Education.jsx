@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { courses, courseById, lessons, money } from "../academyData.js";
+import React from "react";
+import { courses, courseById, money } from "../academyData.js";
 import CourseDetail from "./CourseDetail.jsx";
+import NotFound from "./NotFound.jsx";
 import {
   DemoNote,
   LinkButton,
   Page,
   SectionTitle,
-  useAcademy,
 } from "../components.jsx";
 
 export function CoursesPage({ id, track }) {
@@ -47,201 +47,6 @@ export function CoursesPage({ id, track }) {
     );
   return <CourseDetail course={course} track={track} />;
 }
-export function SchedulePage({ filter = "all" }) {
-  const { setModal } = useAcademy();
-  const [category, setCategory] = useState("all");
-  const [month, setMonth] = useState("2026-11");
-  const filtered = courses
-    .filter(
-      (c) =>
-        (category === "all" || c.id === category) &&
-        c.date.startsWith(month) &&
-        (filter === "all" ||
-          (filter === "weekend"
-            ? ["nail", "extension"].includes(c.id)
-            : !["nail", "extension"].includes(c.id))),
-    )
-    .sort((a, b) => a.date.localeCompare(b.date));
-  return (
-    <Page
-      title={
-        filter === "weekday"
-          ? "평일반 개강일정"
-          : filter === "weekend"
-            ? "주말반 개강일정"
-            : "전체 개강일정"
-      }
-      group="개강일정"
-    >
-      <div className="table-toolbar">
-        <label>
-          모집 월
-          <select value={month} onChange={(e) => setMonth(e.target.value)}>
-            <option value="2026-11">2026년 11월</option>
-            <option value="2026-12">2026년 12월</option>
-          </select>
-        </label>
-        <label>
-          교육 분야
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="all">전체 분야</option>
-            {courses.map((c) => (
-              <option value={c.id} key={c.id}>
-                {c.category}
-              </option>
-            ))}
-          </select>
-        </label>
-        <span>총 {filtered.length}개 과정</span>
-      </div>
-      <div className="schedule-table">
-        <div className="schedule-head">
-          <span>개강일</span>
-          <span>교육과정</span>
-          <span>수업 시간</span>
-          <span>기간</span>
-          <span>상담</span>
-        </div>
-        {filtered.map((c) => (
-          <article key={c.id}>
-            <time dateTime={c.date}>
-              {c.date.slice(5).replace("-", ".")}
-              <small>2026년</small>
-            </time>
-            <div>
-              <h2>
-                <a href={`#courses/${c.id}`}>
-                  {c.category}{" "}
-                  {c.id === "extension" ? "실무반" : "기초·자격증반"}
-                </a>
-              </h2>
-              <span>예시 개강 일정</span>
-            </div>
-            <p>{c.days}</p>
-            <span>{c.weeks}주</span>
-            <button
-              className="button secondary"
-              onClick={() => setModal({ type: "consult", course: c.id })}
-            >
-              상담 신청
-            </button>
-          </article>
-        ))}
-      </div>
-      {!filtered.length && (
-        <div className="empty">
-          <h2>등록된 개강일정이 없습니다</h2>
-          <p>다른 분야 또는 모집 월을 선택해주세요.</p>
-          <button
-            className="button secondary"
-            onClick={() => {
-              setCategory("all");
-              setMonth("2026-11");
-            }}
-          >
-            11월 전체 분야 보기
-          </button>
-        </div>
-      )}
-      <DemoNote>
-        시연용 일정입니다. 실제 모집 인원이나 잔여 좌석을 의미하지 않습니다.
-      </DemoNote>
-    </Page>
-  );
-}
-export function OnlinePage({ id }) {
-  const { enrollments, setEnrollments, user } = useAcademy();
-  const course = courseById(id);
-  if (id && !course) return <NotFound />;
-  if (!course)
-    return (
-      <Page title="온라인 이론 강의" group="온라인 강의">
-        <DemoNote>
-          영상 강의 대신 텍스트 학습 콘텐츠로 수강 흐름을 체험할 수 있습니다.
-        </DemoNote>
-        <div className="online-list">
-          {courses.slice(0, 4).map((c) => (
-            <article key={c.id}>
-              <img src={c.image} alt={`${c.category} 강의 이미지`} />
-              <div>
-                <h2>{c.category} 기초 이론</h2>
-                <p>위생 관리, 고객 상담, 색채 기초, 실습 준비를 학습합니다.</p>
-                <span>4개 단원 · 총 65분 학습 예시</span>
-              </div>
-              <LinkButton to={`online/${c.id}`} secondary>
-                강의 상세
-              </LinkButton>
-            </article>
-          ))}
-        </div>
-      </Page>
-    );
-  const enrolled = enrollments.includes(id);
-  return (
-    <Page title={`${course.category} 기초 이론`} group="온라인 강의">
-      <div className="online-detail">
-        <img src={course.image} alt={`${course.category} 실습`} />
-        <div>
-          <h2>수업 정보</h2>
-          <dl className="spec-list">
-            <div>
-              <dt>수업 방식</dt>
-              <dd>온라인 이론 학습 예시</dd>
-            </div>
-            <div>
-              <dt>구성</dt>
-              <dd>4개 단원 / 학습 자료 포함</dd>
-            </div>
-            <div>
-              <dt>학습 시간</dt>
-              <dd>약 65분</dd>
-            </div>
-            <div>
-              <dt>이용 요금</dt>
-              <dd>데모 무료 / 실제 결제 없음</dd>
-            </div>
-          </dl>
-          {!user ? (
-            <LinkButton to="account">데모 계정으로 시작</LinkButton>
-          ) : enrolled ? (
-            <LinkButton to={`classroom/${id}`}>학습 시작</LinkButton>
-          ) : (
-            <button
-              className="button"
-              onClick={() =>
-                setEnrollments((ids) => (ids.includes(id) ? ids : [...ids, id]))
-              }
-            >
-              데모 수강 신청
-            </button>
-          )}
-          {enrolled && (
-            <p role="status" className="small">
-              수강 신청된 과정입니다. 나의 강의실에서 이어서 학습하세요.
-            </p>
-          )}
-        </div>
-      </div>
-      <section className="detail-section">
-        <SectionTitle>강의 목차</SectionTitle>
-        <ol className="lesson-list">
-          {lessons.map((lesson) => (
-            <li key={lesson.id}>
-              <strong>{lesson.title}</strong>
-              <span>{lesson.minutes}분 학습 예시</span>
-            </li>
-          ))}
-        </ol>
-      </section>
-      <DemoNote>
-        실제 강의 영상, 결제, 수료증 발급은 연결되지 않은 데모입니다.
-      </DemoNote>
-    </Page>
-  );
-}
 export function SupportPage({ section }) {
   const titles = { courses: "과정·수강료", process: "국비지원 신청 절차" };
   return (
@@ -268,7 +73,7 @@ export function SupportPage({ section }) {
                   .map((c) => (
                     <tr key={c.id}>
                       <th scope="row">
-                        <a href={`#courses/${c.id}`}>{c.category} 자격증</a>
+                        <a href={`#courses/${c.id}/certificate`}>{c.category} 자격증</a>
                       </th>
                       <td>{c.weeks}주</td>
                       <td>380,000원 ~ 상담</td>
@@ -381,16 +186,6 @@ export function SupportPage({ section }) {
           </section>
         </>
       )}
-    </Page>
-  );
-}
-export function NotFound() {
-  return (
-    <Page title="페이지를 찾을 수 없습니다">
-      <div className="empty">
-        <p>주소가 변경되었거나 등록되지 않은 페이지입니다.</p>
-        <LinkButton to="home">홈으로 이동</LinkButton>
-      </div>
     </Page>
   );
 }

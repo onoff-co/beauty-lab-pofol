@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { assetUrl } from "../assets.js";
+import { media } from "../media.js";
 import { courseById, courses, teachers, portfolio } from "../academyData.js";
 import {
   ConsultationForm,
@@ -9,7 +9,7 @@ import {
   SectionTitle,
   useAcademy,
 } from "../components.jsx";
-import { NotFound } from "./Education.jsx";
+import NotFound from "./NotFound.jsx";
 
 export function AboutPage({ section }) {
   const [selected, setSelected] = useState("makeup");
@@ -24,8 +24,8 @@ export function AboutPage({ section }) {
           {teachers.map((t) => (
             <article key={t.name}>
               <img
-                src={courseById(t.course).image}
-                alt={`${t.role} 실습 분야 시안`}
+                src={media.teacherProfile[t.course]}
+                alt={`${t.name} 강사 소개용 생성 인물 시안`}
               />
               <div>
                 <p className="teacher-role">{t.role}</p>
@@ -57,7 +57,7 @@ export function AboutPage({ section }) {
         </div>
         <figure className="facility-view">
           <img
-            src={courseById(selected).image}
+            src={media.facility[selected]}
             alt={`${courseById(selected).category} 실습 환경 시안`}
           />
           <figcaption>
@@ -79,8 +79,8 @@ export function AboutPage({ section }) {
     <Page title="학원소개" group="학원소개">
       <div className="about-image">
         <img
-          src={assetUrl("/assets/beauty-academy-hero.png")}
-          alt="뷰티랩 헤어 실습 환경 콘셉트"
+          src={media.academy}
+          alt="뷰티랩 학원 리셉션 공간 콘셉트"
         />
       </div>
       <div className="about-intro">
@@ -131,7 +131,7 @@ export function AboutPage({ section }) {
     </Page>
   );
 }
-export function ContactPage({ section }) {
+export function ContactPage({ section,params=new URLSearchParams() }) {
   const title =
     section === "visit"
       ? "방문 상담"
@@ -140,6 +140,7 @@ export function ContactPage({ section }) {
         : "과정 상담";
   return (
     <Page title={title} group="상담예약">
+      {section==='tuition'&&<div className="tuition-options"><p>분야별 예시 비용을 확인하고 문의할 과정을 선택하세요.</p><div className="fee-table"><table><thead><tr><th>분야</th><th>예시 수강료</th><th>예시 재료비</th><th>선택</th></tr></thead><tbody>{courses.map(c=><tr key={c.id}><th scope="row">{c.category}</th><td>380,000원 ~ 상담</td><td>{c.kit.toLocaleString('ko-KR')}원</td><td><a className="text-link" href={`#contact/tuition?course=${c.id}`} aria-current={params.get('course')===c.id?'true':undefined}>{params.get('course')===c.id?'선택됨':'문의 선택'}</a></td></tr>)}</tbody></table></div><DemoNote>실제 교육비가 아닌 디자인 예시입니다. 지원금이나 자비부담액이 아닙니다.</DemoNote></div>}
       <div className="contact-page">
         <aside>
           <h2>
@@ -175,7 +176,7 @@ export function ContactPage({ section }) {
             입력해주세요. 서버 전송 없이 현재 탭에서만 유지됩니다.
           </DemoNote>
         </aside>
-        <ConsultationForm key={title} mode={title} />
+        <ConsultationForm key={`${title}/${params.get('course')||''}`} mode={title} course={courseById(params.get('course'))?.id||''} />
       </div>
       <section className="detail-section">
         <SectionTitle>상담 전에 자주 묻는 질문</SectionTitle>
@@ -260,7 +261,7 @@ export function CommunityPage({ section = "notices", id }) {
       <Page title={work ? "작품 상세" : "작품 갤러리"} group="커뮤니티">
         {work ? (
           <article className="work-detail">
-            <img src={work.image} alt={`${work.title} 생성 시안`} />
+            <img src={media.workDetail[work.id]} alt={`${work.title} 세부 표현 생성 시안`} />
             <div>
               <span>{work.category}</span>
               <h2>{work.title}</h2>
@@ -295,7 +296,7 @@ export function CommunityPage({ section = "notices", id }) {
                 .filter((w) => category === "all" || w.id === category)
                 .map((w) => (
                   <a href={`#community/portfolio/${w.id}`} key={w.id}>
-                    <img src={w.image} alt={`${w.title} 시안`} />
+                    <img src={media.gallery[w.id]} alt={`${w.title} 시안`} loading="lazy" />
                     <span>{w.category}</span>
                     <h2>{w.title}</h2>
                   </a>
@@ -310,7 +311,7 @@ export function CommunityPage({ section = "notices", id }) {
       </Page>
     );
   }
-  if (section === "stories")
+  if (section === "stories" && !id)
     return (
       <Page title="수강 이야기" group="커뮤니티">
         <DemoNote>
@@ -340,7 +341,7 @@ export function CommunityPage({ section = "notices", id }) {
           ].map(([key, title, text, goal]) => (
             <article key={key}>
               <img
-                src={courseById(key).image}
+                src={media.story[key]}
                 alt={`${courseById(key).category} 수업 시안`}
               />
               <div>

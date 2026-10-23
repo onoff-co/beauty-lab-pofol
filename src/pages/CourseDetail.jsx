@@ -3,6 +3,7 @@ import { money, teachers, tracks } from '../academyData.js';
 import { courseProfiles } from '../courseProfiles.js';
 import { ConsultationForm, DemoNote, LinkButton, Page, useAcademy } from '../components.jsx';
 import '../course-detail.css';
+import { CourseSessions } from './Schedule.jsx';
 
 export default function CourseDetail({ course, track }) {
   const { setModal } = useAcademy();
@@ -17,14 +18,14 @@ export default function CourseDetail({ course, track }) {
     ? [['기본기 점검','실습 자세와 도구',course.topics.slice(0,2).join(', ')],['응용 실습',profile.salon[0],profile.salon.slice(1).join(', ')],['현장 연습','고객 맞춤 시술','상담 기록, 시간 배분, 사후 관리 안내']]
     : [['작품 기획',profile.portfolio[0],'참고 자료 분석, 콘셉트와 색채 계획'],['작품 제작',profile.portfolio[1],course.topics.join(', ')],['촬영·정리',profile.portfolio[2],'완성도 점검, 작품 선택과 개별 피드백']];
   return <Page title={title} group="교육과정" className="course-page">
-    <div className="course-cover">
+    {selected?<div className="course-summary"><p>{title}</p><p>{selected.text}</p></div>:<div className="course-cover">
       <div className="course-cover-copy">
         <p className="course-cover-name">{title}</p>
         <p>{selected ? selected.text : profile.introduction}</p>
         <button className="button" onClick={() => setModal({ type:'consult', course:course.id })}>과정 상담 신청</button>
       </div>
       <img src={course.banner} alt={`${course.category} 교육 도구를 구성한 배너 시안`} width="1448" height="1086" fetchPriority="high" />
-    </div>
+    </div>}
     <nav className="course-switcher" aria-label={`${course.category} 세부 과정`}>
       <a href={`#courses/${course.id}`} aria-current={!selected?'page':undefined}>전체 과정</a>
       {available.map(item => <a key={item.id} href={`#courses/${course.id}/${item.id}`} aria-current={selected?.id===item.id?'page':undefined}>{item.name}</a>)}
@@ -58,8 +59,8 @@ export default function CourseDetail({ course, track }) {
       </section>
     </>}
 
-    <section className="course-block course-teacher" aria-labelledby="teacher-title">
-      <img src={course.image} alt={`${course.category} 수업 분위기 시안`} loading="lazy" />
+    <CourseSessions course={course.id} track={selected?.id}/>
+    {!selected&&<><section className="course-block course-teacher text-only" aria-labelledby="teacher-title">
       <div><h2 id="teacher-title">과정 담당 강사</h2><p className="course-teacher-name">{course.teacher} 강사</p><p>{teacher?.specialty}</p><p>{teacher?.method}</p><a className="text-link" href="#about/instructors">강사진 전체 보기</a><p className="small muted">강사 정보와 사진은 포트폴리오용 예시입니다.</p></div>
     </section>
     <section className="course-block" aria-labelledby="career-title">
@@ -69,12 +70,12 @@ export default function CourseDetail({ course, track }) {
     <section className="course-block course-enrollment" aria-labelledby="enrollment-title">
       <h2 id="enrollment-title">수강 안내</h2>
       <dl><div><dt>교육 기간</dt><dd>{course.weeks}주</dd></div><div><dt>수업 시간</dt><dd>{course.days}</dd></div><div><dt>다음 개강</dt><dd>{course.date.replaceAll('-','.')}</dd></div><div><dt>예시 수강료</dt><dd>380,000원 ~ 상담</dd></div><div><dt>예시 재료비</dt><dd>{money(course.kit)} 별도</dd></div><div><dt>수업 방식</dt><dd>오프라인 실습{course.id!=='extension'?' + 온라인 이론':''}</dd></div></dl>
-      <div className="button-row"><LinkButton to="schedule" secondary>전체 개강일정</LinkButton>{course.id!=='extension' && <LinkButton to={`online/${course.id}`} secondary>온라인 이론 강의</LinkButton>}</div>
+      <div className="button-row">{course.id!=='extension' && <LinkButton to={`online/${course.id}`} secondary>온라인 이론 바로 보기</LinkButton>}</div>
       <DemoNote>교육 기간·시간·개강일·수강료는 모두 디자인 시연용 예시입니다. 선택한 과정의 실제 운영 조건은 별도 확정이 필요합니다.</DemoNote>
-    </section>
+    </section></>}
     <section className="course-block course-inquiry" aria-labelledby="inquiry-title">
       <div className="course-section-heading"><h2 id="inquiry-title">상담예약</h2><p>{course.category} 수업의 목표와 희망 시간대를 남겨주세요.</p></div>
-      <ConsultationForm course={course.id} />
+      <ConsultationForm course={course.id} track={selected?.id} />
     </section>
   </Page>;
 }

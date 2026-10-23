@@ -2,10 +2,12 @@ import assert from 'node:assert/strict';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { Browser } from '../../.agents/skills/design-taste-frontend/scripts/lib/cdp.mjs';
 import { courses, navigation, tracks } from '../src/academyData.js';
+import {sessions} from '../src/scheduleData.js';
+import {onlineLessons} from '../src/onlineData.js';
 
 // Read-only render audit. Interaction flows are checked separately in the app browser.
 const courseRoutes=courses.flatMap(c=>tracks.filter(t=>c.id!=='extension'||t.id!=='certificate').map(t=>`courses/${c.id}/${t.id}`));
-const routes=[...new Set(['home',...navigation.flatMap(g=>[g.route,...g.children.map(([,route])=>route)]),...courseRoutes,'account/login','admin','privacy'])];
+const routes=[...new Set(['home',...navigation.flatMap(g=>[g.route,...g.children.map(([,route])=>route)]),...courseRoutes,...sessions.map(s=>`schedule/class/${s.id}`),...onlineLessons.map(l=>`online/${l.course}/${l.id}`),'account/login','admin','privacy'])];
 const evidence=new Set(['home',...courses.map(c=>`courses/${c.id}`),'courses/hair/certificate','online','schedule','support','community/notices','contact','about/instructors']);
 mkdirSync('artifacts/pages',{recursive:true});
 const browser=await Browser.launch();
@@ -28,10 +30,14 @@ try{
       assert.deepEqual(result.brokenImages,[],`${width} ${route}: broken images`);
       assert.deepEqual(result.longHeadings,[],`${width} ${route}: long headings`);
       if(route.startsWith('courses/')){
+        if(route.split('/').length===2){
         const banner=await page.eval(async()=>{const image=document.querySelector('.course-cover img');await image.decode();return {src:image.getAttribute('src'),width:image.naturalWidth,height:image.naturalHeight,fit:getComputedStyle(image).objectFit};});
         assert.equal(banner.src,`${new URL(siteUrl).pathname}assets/banner-${route.split('/')[1]}.png`,`${route}: wrong banner image`);
         assert.ok(banner.width>0&&banner.height>0,`${route}: banner did not load`);
         assert.equal(banner.fit,'contain',`${route}: banner must not crop source image`);
+        }else{
+          assert.equal(await page.eval(()=>document.querySelectorAll('.course-cover img').length),0,`${route}: track must not repeat the overview banner`);
+        }
         const detail=await page.eval(()=>({curriculum:document.querySelectorAll('.course-curriculum article').length,roadmap:document.querySelectorAll('.course-roadmap article').length,selected:document.querySelector('.course-switcher [aria-current=page]')?.getAttribute('href'),field:document.querySelector('.course-inquiry select')?.value,title:document.title}));
         assert.equal(detail.selected,`#${route}`,`${route}: selected course navigation`);
         assert.equal(detail.field,route.split('/')[1],`${route}: consultation course preselection`);
