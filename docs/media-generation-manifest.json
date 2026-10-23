@@ -1,0 +1,141 @@
+{
+  "generatedOn": "2026-10-23",
+  "method": "Built-in imagegen",
+  "decision": "Replaces the unused 74-image draft. Repeated banner and classroom photo placements removed; 26 purpose-specific images retained.",
+  "assets": [
+    {
+      "id": "academy-intro",
+      "file": "public/assets/academy-intro.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Wide architectural photograph of a quiet elegant beauty academy reception with ivory stone counter, blush waiting bench, glass partition revealing a corridor, framed unlettered abstract art and tall windows. No people."
+    },
+    {
+      "id": "campaign-makeup",
+      "file": "public/assets/campaign-makeup.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Adult makeup artist in black jacket applying soft wedding eye makeup to an adult model in ivory blouse at a clean studio mirror, medium wide side angle. Finished look and careful gesture visible."
+    },
+    {
+      "id": "promotion-starter",
+      "file": "public/assets/promotion-starter.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Top-down photograph of a beginner beauty learning kit in an open beige fabric roll, brushes, section clips, comb, blank notebook, cotton pads and unbranded burgundy pouch on ivory table."
+    },
+    {
+      "id": "teacher-home-makeup",
+      "file": "public/assets/teacher-home-makeup.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Half-length professional instructor portrait of one Korean woman in her thirties with neat dark bob, oval face, ivory blouse and black tailored vest, warm composed expression, facing camera against pale warm-gray studio wall. Head and shoulders entirely visible, arms relaxed, natural facial details. No tools or other people."
+    },
+    {
+      "id": "teacher-home-hair",
+      "file": "public/assets/teacher-home-hair.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Half-length professional instructor portrait of one Korean man in his forties with short textured dark hair, rectangular glasses, black crew-neck shirt and charcoal apron, warm composed expression, facing camera against pale warm-gray studio wall. Head and shoulders entirely visible, arms relaxed, natural facial details. No tools or other people."
+    },
+    {
+      "id": "teacher-home-nail",
+      "file": "public/assets/teacher-home-nail.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Half-length professional instructor portrait of one Korean woman in her thirties with shoulder-length wavy chestnut hair, soft round face, charcoal blouse and stud earrings, warm composed expression, facing camera against pale warm-gray studio wall. Head and shoulders entirely visible, arms relaxed, natural facial details. No tools or other people."
+    },
+    {
+      "id": "teacher-home-skin",
+      "file": "public/assets/teacher-home-skin.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Half-length professional instructor portrait of one Korean woman in her forties with dark hair in a tidy low bun, elongated face, ivory professional esthetician tunic, warm composed expression, facing camera against pale warm-gray studio wall. Head and shoulders entirely visible, arms relaxed, natural facial details. No tools or other people."
+    },
+    {
+      "id": "facility-makeup",
+      "file": "public/assets/facility-makeup.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Wide corner architectural view of an empty makeup studio with six mirror stations, warm-white lighting, black stools, ivory counters and brushes. Clear circulation, believable equipment arrangement, no people."
+    },
+    {
+      "id": "facility-hair",
+      "file": "public/assets/facility-hair.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Wide corner architectural view of an empty hair salon with six styling mirrors and chairs, mannequin heads and a shampoo station. Clear circulation, believable equipment arrangement, no people."
+    },
+    {
+      "id": "facility-nail",
+      "file": "public/assets/facility-nail.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Wide corner architectural view of an empty nail studio with manicure tables, task lamps, hand rests and sample boards without letters. Clear circulation, believable equipment arrangement, no people."
+    },
+    {
+      "id": "facility-skin",
+      "file": "public/assets/facility-skin.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Wide corner architectural view of an empty esthetic suite with four treatment beds, privacy curtains, towel carts and soft daylight. Clear circulation, believable equipment arrangement, no people."
+    },
+    {
+      "id": "story-makeup",
+      "file": "public/assets/story-makeup.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Candid learning milestone in makeup: adult trainee in beige apron reviewing a photographic work sample with instructor in charcoal jacket at a table. Side view, engaged expressions, neutral eyeshadow palettes, brushes and face charts without letters in background. No certificates, text, awards or claims."
+    },
+    {
+      "id": "story-hair",
+      "file": "public/assets/story-hair.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Candid learning milestone in hair styling: adult trainee in beige apron reviewing a photographic work sample with instructor in charcoal jacket at a table. Side view, engaged expressions, training mannequin heads with chestnut hair, combs and sectioning clips in background. No certificates, text, awards or claims."
+    },
+    {
+      "id": "story-nail",
+      "file": "public/assets/story-nail.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Candid learning milestone in nail art: adult trainee in beige apron reviewing a photographic work sample with instructor in charcoal jacket at a table. Side view, engaged expressions, oval nail sample tips, small brushes and muted pink gel swatches in background. No certificates, text, awards or claims."
+    },
+    {
+      "id": "gallery-makeup",
+      "file": "public/assets/gallery-makeup.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Gallery photograph of finished rose-beige bridal makeup with delicate eyeliner and satin rose lips on one adult Korean female model with low bun, realistic pores. Front three-quarter portrait, eyes looking gently down. Warm off-white studio background, whole subject visible."
+    },
+    {
+      "id": "gallery-hair",
+      "file": "public/assets/gallery-hair.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Gallery photograph of finished medium-long chestnut layered haircut with curved blow-dried ends on adult model in charcoal cape, crown and ends fully visible. Rear three-quarter angle tilted slightly left. Warm off-white studio background, whole subject visible."
+    },
+    {
+      "id": "gallery-nail",
+      "file": "public/assets/gallery-nail.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Gallery photograph of completed short oval dusty-rose nail art with fine burgundy French accents on exactly one resting adult hand with exactly five anatomically correct fingers. Diagonal top view on blush linen. Warm off-white studio background, whole subject visible."
+    },
+    {
+      "id": "gallery-skin",
+      "file": "public/assets/gallery-skin.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Gallery photograph of esthetic practice demonstration on adult model under ivory towels, adult hands performing gentle facial massage, focus on hygienic technique, no before-after. Wide side view of an esthetic practice bed. Warm off-white studio background, whole subject visible."
+    },
+    {
+      "id": "work-detail-makeup",
+      "file": "public/assets/work-detail-makeup.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Detail photograph of finished rose-beige bridal makeup with delicate eyeliner and satin rose lips on one adult Korean female model with low bun, realistic pores. Head-and-shoulders side-three-quarter view emphasizing eye and cheek makeup. Beige studio, natural texture."
+    },
+    {
+      "id": "work-detail-hair",
+      "file": "public/assets/work-detail-hair.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Detail photograph of finished medium-long chestnut layered haircut with curved blow-dried ends on adult model in charcoal cape, crown and ends fully visible. Direct rear view of the clean layered silhouette. Beige studio, natural texture."
+    },
+    {
+      "id": "work-detail-nail",
+      "file": "public/assets/work-detail-nail.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Detail photograph of completed short oval dusty-rose nail art with fine burgundy French accents on exactly one resting adult hand with exactly five anatomically correct fingers. Low oblique close view on ivory ceramic hand-rest, every nail visible. Beige studio, natural texture."
+    },
+    {
+      "id": "work-detail-skin",
+      "file": "public/assets/work-detail-skin.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Detail photograph of esthetic practice demonstration on adult model under ivory towels, adult hands performing gentle facial massage, focus on hygienic technique, no before-after. Close view of the gentle cheek massage and towel placement. Beige studio, natural texture."
+    },
+    {
+      "id": "teacher-profile-makeup",
+      "file": "public/assets/teacher-profile-makeup.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Use the supplied instructor portrait as an identity reference. Preserve this exact adult person's facial features, age, hairstyle and clothing. Create a DISTINCT three-quarter seated professional portrait at a beauty-academy consultation desk with gently blurred training room in background. Different camera angle and pose from the reference, hands resting naturally on the desk, personable expression, upper body and whole head visible. No text, no new person.",
+      "reference": "public/assets/teacher-home-makeup.png"
+    },
+    {
+      "id": "teacher-profile-hair",
+      "file": "public/assets/teacher-profile-hair.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Use the supplied instructor portrait as an identity reference. Preserve this exact adult person's facial features, age, hairstyle and clothing. Create a DISTINCT three-quarter seated professional portrait at a beauty-academy consultation desk with gently blurred training room in background. Different camera angle and pose from the reference, hands resting naturally on the desk, personable expression, upper body and whole head visible. No text, no new person.",
+      "reference": "public/assets/teacher-home-hair.png"
+    },
+    {
+      "id": "teacher-profile-skin",
+      "file": "public/assets/teacher-profile-skin.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Use the supplied instructor portrait as an identity reference. Preserve this exact adult person's facial features, age, hairstyle and clothing. Create a DISTINCT three-quarter seated professional portrait at a beauty-academy consultation desk with gently blurred training room in background. Different camera angle and pose from the reference, hands resting naturally on the desk, personable expression, upper body and whole head visible. No text, no new person.",
+      "reference": "public/assets/teacher-home-skin.png"
+    },
+    {
+      "id": "teacher-profile-nail",
+      "file": "public/assets/teacher-profile-nail.png",
+      "prompt": "Use case: photorealistic-natural. One original photographic asset for a premium Korean beauty academy demo website. Landscape 4:3, realistic natural textures, restrained warm ivory/blush and charcoal palette, soft window or studio light. Authentic professional photography, not CGI or a website mockup. Main subject fully within central 80%, safe crop margins. No text, letters, logo, watermark, collage, gradients, neon, illustration, artificial plastic skin. All people adults. Use the supplied instructor portrait as an identity reference. Preserve this exact adult person's facial features, age, hairstyle and clothing. Create a DISTINCT three-quarter seated professional portrait at a beauty-academy consultation desk with gently blurred training room in background. Different camera angle and pose from the reference, hands resting naturally on the desk, personable expression, upper body and whole head visible. No text, no new person.",
+      "reference": "public/assets/teacher-home-nail.png"
+    }
+  ]
+}
