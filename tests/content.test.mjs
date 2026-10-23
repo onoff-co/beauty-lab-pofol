@@ -6,6 +6,21 @@ import { fileURLToPath } from 'node:url';
 import { courseProfiles } from '../src/courseProfiles.js';
 import { onlineLessons, lessonsForCourse, onlineLessonById } from '../src/onlineData.js';
 
+test('academy copy uses service language instead of demo or portfolio-site labels',()=>{
+  const files=['components.jsx','academyData.js','domain.js','pages/Home.jsx','pages/Academy.jsx','pages/Education.jsx','pages/Student.jsx','pages/Online.jsx','pages/Schedule.jsx','pages/CourseDetail.jsx'];
+  for(const file of files){
+    const source=readFileSync(new URL(`../src/${file}`,import.meta.url),'utf8');
+    assert.doesNotMatch(source,/데모|체험용|시연용|포트폴리오용|웹사이트 포트폴리오|Portfolio demonstration|예시 수강료|예시 재료비/,file);
+  }
+  const student=readFileSync(new URL('../src/pages/Student.jsx',import.meta.url),'utf8');
+  assert.match(student,/<h2>로그인 후 이용해주세요\.<\/h2>/);
+  const components=readFileSync(new URL('../src/components.jsx',import.meta.url),'utf8');
+  assert.match(components,/상담 접수나 예약이 확정된 것은 아닙니다/);
+  const privacy=readFileSync(new URL('../src/pages/Academy.jsx',import.meta.url),'utf8');
+  assert.match(privacy,/현재 화면 상태에만 저장됩니다/);
+  assert.match(privacy,/이미지는 AI로 제작한/);
+});
+
 test('online subjects use distinct verified public video ids and field-specific lessons',()=>{
   assert.equal(new Set(onlineLessons.map(l=>l.videoId)).size,onlineLessons.length);
   for(const id of ['makeup','hair','nail','skin']){

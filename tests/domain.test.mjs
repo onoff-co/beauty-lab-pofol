@@ -2,6 +2,54 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeRoute, validateInquiry, toggleCompletion, parseRoute, routeTo, supportedRoute, safeReturnRoute } from '../src/domain.js';
 import { sessions, filterSessions, sessionById } from '../src/scheduleData.js';
+import { promotionDay, shouldShowPromotion, hidePromotionToday } from '../src/promotion.js';
+import { admissionsSelection } from '../src/admissionsData.js';
+
+test('admissions selection restores valid choices and falls back for unknown query values',()=>{
+  assert.equal(admissionsSelection(new URLSearchParams('grade=senior&major=hair')).plan.id,'senior');
+  assert.equal(admissionsSelection(new URLSearchParams('grade=senior&major=hair')).major.id,'hair');
+  const fallback=admissionsSelection(new URLSearchParams('grade=unknown&major=extension'));
+  assert.equal(fallback.plan.id,'early');
+  assert.equal(fallback.major.id,'makeup');
+});
+
+test('admissions inquiries require a supported grade and major without affecting general inquiries',()=>{
+  const valid={name:'테스트',phone:'010-0000-0000',course:'hair',mode:'입시 상담',grade:'senior',consent:true};
+  assert.deepEqual(validateInquiry(valid),{});
+  assert.ok(validateInquiry({...valid,grade:''}).grade);
+  assert.ok(validateInquiry({...valid,course:'extension'}).course);
+  assert.deepEqual(validateInquiry({...valid,mode:'과정 상담',grade:'',course:'extension'}),{});
+});
+
+test('admissions overview and consultation have distinct supported routes',()=>{
+  assert.equal(supportedRoute('admissions'),true);
+  assert.equal(supportedRoute('admissions/consult'),true);
+  assert.equal(supportedRoute('admissions/unknown'),false);
+  const selection=parseRoute(routeTo('admissions/consult',{grade:'senior',major:'hair'}));
+  assert.equal(selection.path,'admissions/consult');
+  assert.equal(selection.params.get('grade'),'senior');
+  assert.equal(selection.params.get('major'),'hair');
+});
+
+test('entry promotion respects Korean calendar day and does not interrupt member or contact pages',()=>{
+  const now=new Date('2026-10-23T14:59:59Z');
+  assert.equal(promotionDay(now),'2026-10-23');
+  assert.equal(promotionDay(new Date('2026-10-23T15:00:00Z')),'2026-10-24');
+  const saved=new Map();
+  const host={localStorage:{getItem:key=>saved.get(key),setItem:(key,value)=>saved.set(key,value)}};
+  assert.equal(shouldShowPromotion('home',host,now),true);
+  assert.equal(hidePromotionToday(host,now),true);
+  assert.equal(shouldShowPromotion('home',host,now),false);
+  assert.equal(shouldShowPromotion('courses/hair',host,new Date('2026-10-23T15:00:00Z')),true);
+  for(const path of ['admin','admin/members','account/login','classroom','contact','privacy'])
+    assert.equal(shouldShowPromotion(path,{},now),false);
+});
+
+test('unavailable browser storage never prevents visiting or dismissing the promotion',()=>{
+  const host={get localStorage(){throw new Error('Storage blocked');}};
+  assert.equal(shouldShowPromotion('home',host),true);
+  assert.equal(hidePromotionToday(host),false);
+});
 
 test('route query preserves filters and encoded destinations without treating them as path segments', () => {
   const parsed = parseRoute('#schedule/class/hair-certificate?course=hair&month=2026-11&group=weekday');

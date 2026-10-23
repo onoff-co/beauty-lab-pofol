@@ -2,6 +2,7 @@ import React from "react";
 import { courses, courseById, money } from "../academyData.js";
 import CourseDetail from "./CourseDetail.jsx";
 import NotFound from "./NotFound.jsx";
+import { CourseCatalog } from '../CourseCards.jsx';
 import {
   DemoNote,
   LinkButton,
@@ -15,34 +16,7 @@ export function CoursesPage({ id, track }) {
   if (!course)
     return (
       <Page title="전체 교육과정" group="교육과정">
-        <div className="catalog-list">
-          {courses.map((c) => (
-            <article className="catalog-row" key={c.id}>
-              <a href={`#courses/${c.id}`}>
-                <img src={c.image} alt={`${c.category} 수업 이미지`} />
-              </a>
-              <div>
-                <h2>
-                  <a href={`#courses/${c.id}`}>{c.category}</a>
-                </h2>
-                <p>{c.description}</p>
-                <ul className="inline-topics">
-                  {c.topics.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
-                <div className="catalog-bottom">
-                  <span>
-                    {c.weeks}주 / {c.days}
-                  </span>
-                  <LinkButton to={`courses/${c.id}`} secondary>
-                    과정 상세
-                  </LinkButton>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+        <CourseCatalog/>
       </Page>
     );
   return <CourseDetail course={course} track={track} />;
@@ -54,8 +28,8 @@ export function SupportPage({ section }) {
       {section === "courses" ? (
         <>
           <DemoNote>
-            아래 금액은 일반 교육과정의 디자인 예시입니다. 국비 승인 과정이나
-            실제 자비부담액이 아니며, 지원 금액은 표시하지 않습니다.
+            일반 교육과정의 수강료 안내입니다. 국비 승인 과정이나
+            자비부담액은 고용24에서 별도로 확인해주세요.
           </DemoNote>
           <div className="fee-table">
             <table>
@@ -63,8 +37,8 @@ export function SupportPage({ section }) {
                 <tr>
                   <th>과정</th>
                   <th>기간</th>
-                  <th>예시 수강료</th>
-                  <th>예시 재료비</th>
+                  <th>수강료</th>
+                  <th>재료비</th>
                 </tr>
               </thead>
               <tbody>
@@ -142,13 +116,13 @@ export function SupportPage({ section }) {
                 범위, 과정별 비용은 공식 안내에서 확인해주세요.
               </p>
               <p>
-                뷰티랩은 가상의 포트폴리오 브랜드로, 국비훈련기관으로 등록되어
-                있지 않습니다.
+                이 사이트에서는 국비지원 신청을 접수하지 않습니다.
+                등록된 훈련기관과 지원 대상 과정은 고용24에서 확인해주세요.
               </p>
               <div className="button-row">
                 <LinkButton to="support/process">신청 절차 보기</LinkButton>
                 <LinkButton to="support/courses" secondary>
-                  과정·수강료 예시
+                  과정·수강료 안내
                 </LinkButton>
               </div>
             </div>
@@ -171,7 +145,7 @@ export function SupportPage({ section }) {
               ],
               [
                 "사이트에 나온 수강료가 자비부담액인가요?",
-                "아닙니다. 이 사이트의 수강료는 디자인 시연용 예시이며 국비지원 금액을 계산하거나 보장하지 않습니다.",
+                "아닙니다. 일반 수강료와 국비지원 자비부담액은 다릅니다. 지원 여부와 금액은 고용24의 해당 훈련과정에서 확인해주세요.",
               ],
               [
                 "이 사이트에서 지원 신청할 수 있나요?",

@@ -12,6 +12,8 @@
 .hero-copy{width:46%}
 .hero h1{font-size:clamp(28px,2.6vw,44px);font-weight:700;line-height:1.3;letter-spacing:-.055em;max-width:560px;margin-bottom:20px;text-wrap:balance}
 .hero-copy>p{max-width:400px;color:var(--ink);font-size:16px;line-height:1.8;margin-bottom:24px}
+.hero-description-line{display:block}
+.hero-phrase{display:inline-block}
 .hero-copy .button{min-height:50px;min-width:180px;font-size:16px}
 .hero-1 .hero-photo{width:50%;margin-left:auto;object-fit:contain}
 .hero-pagination{display:flex;align-items:stretch;justify-content:center;min-height:56px;background:var(--ground);border-bottom:1px solid var(--line);gap:0}

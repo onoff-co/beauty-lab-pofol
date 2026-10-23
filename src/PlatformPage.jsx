@@ -3,12 +3,14 @@ import { noticesSeed } from './academyData.js';
 import { normalizeRoute, parseRoute, supportedRoute } from './domain.js';
 import { AcademyContext, Header, Footer, Modal } from './components.jsx';
 import Home from './pages/Home.jsx';
+import AdmissionsPage from './pages/Admissions.jsx';
 import { CoursesPage, SupportPage } from './pages/Education.jsx';
 import NotFound from './pages/NotFound.jsx';
 import { OnlinePage } from './pages/Online.jsx';
 import { SchedulePage, SessionDetail } from './pages/Schedule.jsx';
 import { AboutPage, CommunityPage, ContactPage, PrivacyPage } from './pages/Academy.jsx';
 import { AccountPage, AdminPage, ClassroomPage } from './pages/Student.jsx';
+import { shouldShowPromotion } from './promotion.js';
 
 function RouteContent({route}) {
   const {path,params}=parseRoute(route);
@@ -17,6 +19,7 @@ function RouteContent({route}) {
   switch(root){
     case 'home': return section?<NotFound/>:<Home/>;
     case 'about': return <AboutPage section={section}/>;
+    case 'admissions': return <AdmissionsPage section={section} params={params}/>;
     case 'courses': return <CoursesPage id={section} track={id}/>;
     case 'online': return <OnlinePage id={section} lessonId={id} params={params}/>;
     case 'schedule': return section==='class'?<SessionDetail id={id} params={params}/>:<SchedulePage filter={section} params={params}/>;
@@ -40,6 +43,10 @@ export default function PlatformPage(){
   const [learning,setLearning]=useState({});
   const initialized=useRef(false);
   const path=parseRoute(route).path;
+  useEffect(()=>{
+    const entryPath=parseRoute(normalizeRoute(window.location.hash)).path;
+    if(shouldShowPromotion(entryPath,window))setModal({type:'promotion'});
+  },[]);
   const record=learning[user?.id]||{enrollments:[],completed:[],history:[]};
   const updateLearning=field=>update=>{if(!user)return;setLearning(all=>{const current=all[user.id]||{enrollments:[],completed:[],history:[]};return {...all,[user.id]:{...current,[field]:typeof update==='function'?update(current[field]):update}};});};
   useEffect(()=>{const change=()=>{setRoute(normalizeRoute(window.location.hash));setModal(null);};window.addEventListener('hashchange',change);return()=>window.removeEventListener('hashchange',change);},[]);

@@ -32,10 +32,11 @@ export const tracks = [
 export const navigation = [
   {label:'학원소개',route:'about',children:[['학원소개','about'],['강사진','about/instructors'],['교육환경','about/facilities']]},
   {label:'교육과정',route:'courses',children:courses.map(c=>[c.category,`courses/${c.id}`])},
+  {label:'입시센터',route:'admissions',children:[['입시 준비반','admissions'],['입시 상담','admissions/consult']]},
   {label:'온라인 강의',route:'online',children:[['자격증 이론','online'],['나의 강의실','classroom'],['강의 자료실','classroom/materials'],['출석·수강 이력','classroom/history']]},
   {label:'개강일정',route:'schedule',children:[['전체 일정','schedule'],['평일반','schedule/weekday'],['주말반','schedule/weekend']]},
   {label:'국비지원',route:'support',children:[['지원제도 안내','support'],['과정·수강료','support/courses'],['신청 절차','support/process']]},
-  {label:'커뮤니티',route:'community/notices',children:[['공지사항','community/notices'],['작품 갤러리','community/portfolio'],['수강 이야기','community/stories']]},
+  {label:'커뮤니티',route:'community/notices',children:[['공지사항','community/notices'],['작품 갤러리','community/portfolio'],['수강 가이드','community/stories']]},
   {label:'상담예약',route:'contact',children:[['과정 상담','contact'],['방문 상담','contact/visit'],['수강료 문의','contact/tuition']]},
 ];
 export const teachers = [
@@ -45,9 +46,9 @@ export const teachers = [
   {name:'이하윤',course:'skin',role:'피부미용 교육',specialty:'에스테틱 / 고객 상담',method:'관리 순서와 손의 압을 점검하고 상담 기록을 피드백합니다.'},
 ];
 export const noticesSeed = [
-  {id:'november',title:'11월 자격증·실무반 개강 안내',date:'2026-10-23',category:'모집',body:'11월 헤어, 메이크업, 네일아트, 피부미용 신규반을 안내합니다. 과정별 수업 시간은 개강일정에서 확인할 수 있습니다.\n\n처음 배우는 분은 기초반, 자격증 취득 후 실무를 준비하는 분은 살롱 실무반을 선택해주세요. 수업 준비물과 재료비는 과정 상세에 안내되어 있습니다.\n\n이 공지는 포트폴리오 시연을 위한 예시이며 실제 모집 공고가 아닙니다.'},
-  {id:'theory',title:'온라인 이론 수업 이용 안내',date:'2026-10-20',category:'학습',body:'온라인 강의에서 헤어·메이크업·네일아트·피부미용 과목을 선택하면 공개 영상 시청 화면으로 바로 이동합니다. 외부 영상 불러오기를 누르면 YouTube 플레이어가 연결되며 원본 링크도 제공됩니다.\n\n로그인 없이 영상을 열람할 수 있고, 데모 계정으로 로그인하면 나의 강의실에 추가하거나 자율 학습 완료를 기록할 수 있습니다. 영상의 저작권은 원저작자에게 있으며, 학습 기록은 실제 출석·수료를 인정하지 않습니다.'},
-  {id:'portfolio-day',title:'11월 포트폴리오 촬영 실습 안내',date:'2026-10-15',category:'실습',body:'작품 시안, 준비물 목록, 촬영 참고 이미지를 먼저 정리해주세요. 실습 후에는 완성 사진과 제작 과정을 함께 기록합니다.\n\n예시 실습 일정: 2026년 11월 21일, 13:00–16:00. 인물 촬영과 작품 공개에는 별도의 동의가 필요합니다.'},
+  {id:'november',title:'11월 자격증·실무반 개강 안내',date:'2026-10-23',category:'모집',body:'11월 헤어, 메이크업, 네일아트, 피부미용 신규반을 안내합니다. 과정별 수업 시간은 개강일정에서 확인할 수 있습니다.\n\n처음 배우는 분은 기초반, 자격증 취득 후 실무를 준비하는 분은 살롱 실무반을 선택해주세요. 수업 준비물과 재료비는 과정 상세에 안내되어 있습니다.\n\n희망 반의 운영 여부와 등록 안내는 상담에서 확인해주세요.'},
+  {id:'theory',title:'온라인 이론 수업 이용 안내',date:'2026-10-20',category:'학습',body:'온라인 강의에서 헤어·메이크업·네일아트·피부미용 과목을 선택하면 공개 영상 시청 화면으로 바로 이동합니다. 외부 영상 불러오기를 누르면 YouTube 플레이어가 연결되며 원본 링크도 제공됩니다.\n\n로그인 없이 영상을 열람할 수 있고, 계정으로 로그인하면 나의 강의실에 추가하거나 자율 학습 완료를 기록할 수 있습니다. 영상의 저작권은 원저작자에게 있으며, 학습 기록은 실제 출석·수료를 인정하지 않습니다.'},
+  {id:'portfolio-day',title:'11월 포트폴리오 촬영 실습 안내',date:'2026-10-15',category:'실습',body:'작품 시안, 준비물 목록, 촬영 참고 이미지를 먼저 정리해주세요. 실습 후에는 완성 사진과 제작 과정을 함께 기록합니다.\n\n실습 일정: 2026년 11월 21일, 13:00–16:00. 인물 촬영과 작품 공개에는 별도의 동의가 필요합니다.'},
 ];
 export const lessons = [
   {id:'hygiene',title:'위생과 작업 준비',minutes:15, paragraphs:['미용 실습 전에는 작업대와 도구를 정리하고 손을 씻습니다. 사용 전·후 도구를 구분하여 교차 오염을 줄이는 것이 첫 단계입니다.','일회용품과 재사용 도구를 나눠 관리합니다. 소독제는 제품에 표시된 사용법과 주의사항을 따르고, 환기와 보관 상태를 확인합니다.','실습 체크: 작업대 정리, 손 위생, 도구 점검, 개인 보호용품 준비 순서를 자신의 말로 설명해보세요.']},
@@ -55,4 +56,4 @@ export const lessons = [
   {id:'color',title:'색채와 디자인 기초',minutes:18,paragraphs:['색을 설명할 때는 색상, 명도, 채도를 구분합니다. 같은 색상도 밝기와 선명도에 따라 인상이 달라집니다.','실내 조명과 자연광 아래에서 색을 비교하고, 대상의 바탕색과 주변 색이 결과에 미치는 영향을 관찰합니다.','실습 과제: 유사색으로 구성한 조합과 대비를 활용한 조합을 각각 하나씩 제작하고 선택 이유를 기록해보세요.']},
   {id:'review',title:'실습 계획과 복습',minutes:12,paragraphs:['실습 목표를 하나 정하고 준비, 수행, 정리 시간을 나눕니다. 과제의 결과만이 아니라 도구 사용과 작업 순서도 기록합니다.','완료 후에는 잘된 점과 다시 연습할 점을 구분합니다. 다음 수업에서는 교정할 동작 한 가지에 집중합니다.','복습 질문: 오늘 실습에서 시간을 가장 많이 사용한 단계는 무엇이며, 다음에는 어떤 순서로 연습할 계획인가요?']},
 ];
-export const portfolio = courses.slice(0,4).map((c,i)=>({id:c.id,category:c.category,image:i<3?assetUrl(`/assets/portfolio-${c.id}.png`):c.image,title:['내추럴 웨딩 룩','레이어 커트 스타일링','블러시 컬러 네일','에스테틱 관리 실습'][i],description:['피부 표현과 색조 밸런스를 연습하는 메이크업 작품 예시입니다.','레이어의 연결과 드라이 흐름을 확인하는 헤어 디자인 예시입니다.','톤온톤 컬러 조합과 정돈된 라인을 연습하는 네일 디자인 예시입니다.','관리 동선과 정확한 자세를 학습하는 피부미용 실습 예시입니다.'][i]}));
+export const portfolio = courses.slice(0,4).map((c,i)=>({id:c.id,category:c.category,image:i<3?assetUrl(`/assets/portfolio-${c.id}.png`):c.image,title:['내추럴 웨딩 룩','레이어 커트 스타일링','블러시 컬러 네일','에스테틱 관리 실습'][i],description:['피부 표현과 색조 밸런스를 연습하는 메이크업 작품입니다.','레이어의 연결과 드라이 흐름을 확인하는 헤어 디자인입니다.','톤온톤 컬러 조합과 정돈된 라인을 연습하는 네일 디자인입니다.','관리 동선과 정확한 자세를 학습하는 피부미용 실습입니다.'][i]}));

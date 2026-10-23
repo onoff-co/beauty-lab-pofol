@@ -14,8 +14,10 @@ import "../home.css";
 const campaigns = [
   {
     title: "11월 미용 자격증반",
-    description:
-      "헤어·메이크업·네일아트·피부미용 기초 실습과 필기 이론을 함께 준비하세요.",
+    description: <>
+      <span className="hero-description-line">헤어·메이크업·네일아트·피부미용</span>
+      <span className="hero-description-line"><span className="hero-phrase">기초 실습과 필기 이론을</span>{' '}<span className="hero-phrase">함께 준비하세요.</span></span>
+    </>,
     image: assetUrl("/assets/beauty-academy-hero.png"),
     button: "개강일정 확인",
     to: "schedule",
@@ -50,8 +52,8 @@ export default function Home() {
             src={campaign.image}
             alt={
               slide === 0
-                ? "미용 실습실에서 교육 도구를 든 인물 시안"
-                : "메이크업 실습 시안"
+                ? "미용 실습 도구를 준비하는 모습"
+                : "메이크업 실습 모습"
             }
             fetchPriority="high"
           />
@@ -111,13 +113,13 @@ export default function Home() {
 
       <section className="home-work section-space">
         <div className="wrap">
-          <SectionTitle to="community/portfolio">수강생 작품</SectionTitle>
+          <SectionTitle to="community/portfolio">작품 갤러리</SectionTitle>
           <div className="work-grid">
             {portfolio.slice(0, 3).map((work) => (
               <a href={`#community/portfolio/${work.id}`} key={work.id}>
                 <img
                   src={work.image}
-                  alt={work.title + " 시안"}
+                  alt={work.title}
                   loading="lazy"
                 />
                 <div>
@@ -128,7 +130,7 @@ export default function Home() {
             ))}
           </div>
           <p className="small muted">
-            실제 수강생 작품이 아닌 포트폴리오용 생성 시안입니다.
+            분야별 표현 기법과 작품 스타일을 살펴보세요.
           </p>
         </div>
       </section>
@@ -140,7 +142,7 @@ export default function Home() {
             <a href="#about/instructors" key={teacher.course}>
               <img
                 src={assetUrl(`/assets/teacher-home-${teacher.course}.png`)}
-                alt={teacher.role + " 이미지 시안"}
+                alt={teacher.role + " 프로필 이미지"}
                 loading="lazy"
               />
               <div>
@@ -152,7 +154,7 @@ export default function Home() {
           ))}
         </div>
         <p className="small muted">
-          강사 이름과 인물 이미지는 데모 설정입니다.
+          분야별 담당 강사의 수업 방식과 전문 분야를 확인하세요.
         </p>
       </section>
 
@@ -173,13 +175,13 @@ export default function Home() {
             </LinkButton>
           </div>
           <div>
-            <h2>스타터 패키지</h2>
+            <h2>첫 수강 상담 이벤트</h2>
             <p>처음 시작하는 분을 위한 수업 준비물과 과정 안내.</p>
             <button
               className="button secondary"
               onClick={() => setModal({ type: "promotion" })}
             >
-              패키지 안내
+              이벤트 보기
             </button>
           </div>
         </div>
@@ -204,7 +206,7 @@ export default function Home() {
                   </a>
                 ))}
             </div>
-            <p className="small muted">포트폴리오용 모집 일정 예시</p>
+            <p className="small muted">과정별 개강일과 수업 시간 안내</p>
           </div>
           <div className="news-panel">
             <SectionTitle to="community/notices">공지사항</SectionTitle>
@@ -241,7 +243,7 @@ export default function Home() {
               </div>
             </dl>
             <p className="small muted">
-              신청 흐름을 체험하는 데모입니다. 실제 개인정보를 입력하지 마세요.
+              입력 내용은 현재 화면에서만 유지됩니다. 실제 개인정보는 입력하지 마세요.
             </p>
           </div>
           <ConsultationForm />

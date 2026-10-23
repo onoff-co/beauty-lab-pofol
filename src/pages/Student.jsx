@@ -23,11 +23,11 @@ export function AccountPage({ login = false, returnTo }) {
   function register(e) {
     e.preventDefault();
     if (!name.trim() || !/^\S+@\S+\.\S+$/.test(email)) {
-      setError("이름과 예시 이메일 형식을 확인해주세요.");
+      setError("이름과 이메일 형식을 확인해주세요.");
       return;
     }
     if (members.some((m) => m.email === email.trim())) {
-      setError("이미 등록된 예시 이메일입니다. 데모 로그인을 이용해주세요.");
+      setError("이미 등록된 이메일입니다. 로그인을 이용해주세요.");
       return;
     }
     const member = {
@@ -50,18 +50,18 @@ export function AccountPage({ login = false, returnTo }) {
             온라인 강의 수강 신청, 학습 자료, 수강 이력을 한곳에서 확인합니다.
           </p>
           <DemoNote>
-            인증 없는 체험용 계정입니다. 실제 이메일이나 비밀번호를 사용하지
-            마세요. 새로고침 시 등록 정보가 초기화됩니다.
+            별도 본인 인증 없이 계정을 선택합니다. 실제 개인정보는 입력하지 마세요.
+            회원 정보와 학습 기록은 현재 화면에서만 유지됩니다.
           </DemoNote>
         </div>
         <div className="account-panel">
           {user ? (
             <>
               <h2>{user.name}님</h2>
-              <p>데모 계정으로 이용 중입니다.</p>
+              <p>로그인되었습니다. 나의 강의실에서 학습을 이어가세요.</p>
               <LinkButton to={destination}>{destination==='classroom'?'나의 강의실':'이전 강의로 돌아가기'}</LinkButton>
               <button className="text-link" onClick={() => setUser(null)}>
-                데모 로그아웃
+                로그아웃
               </button>
             </>
           ) : (
@@ -71,10 +71,10 @@ export function AccountPage({ login = false, returnTo }) {
                   href={`#${routeTo('account/login',{returnTo:destination})}`}
                   aria-current={login ? "page" : undefined}
                 >
-                  데모 로그인
+                  로그인
                 </a>
                 <a href={`#${routeTo('account',{returnTo:destination})}`} aria-current={!login ? "page" : undefined}>
-                  회원가입 데모
+                  회원가입
                 </a>
               </nav>
               {login ? (
@@ -86,7 +86,7 @@ export function AccountPage({ login = false, returnTo }) {
                   }}
                 >
                   <label>
-                    체험 계정
+                    계정 선택
                     <select
                       value={selected}
                       onChange={(e) => setSelected(e.target.value)}
@@ -99,13 +99,13 @@ export function AccountPage({ login = false, returnTo }) {
                     </select>
                   </label>
                   <button className="button" type="submit">
-                    선택한 계정으로 체험
+                    로그인
                   </button>
                 </form>
               ) : (
                 <form onSubmit={register} noValidate>
                   <label>
-                    예시 이름
+                    이름
                     <input
                       value={name}
                       maxLength={30}
@@ -114,7 +114,7 @@ export function AccountPage({ login = false, returnTo }) {
                     />
                   </label>
                   <label>
-                    예시 이메일
+                    이메일
                     <input
                       type="email"
                       value={email}
@@ -129,7 +129,7 @@ export function AccountPage({ login = false, returnTo }) {
                     </p>
                   )}
                   <button className="button" type="submit">
-                    데모 회원 등록
+                    회원가입
                   </button>
                 </form>
               )}
@@ -142,7 +142,7 @@ export function AccountPage({ login = false, returnTo }) {
 }
 function downloadMaterial(title, text) {
   const url = URL.createObjectURL(
-    new Blob([`# ${title}\n\n뷰티랩 포트폴리오 학습 자료 예시\n\n${text}`], {
+    new Blob([`# ${title}\n\n뷰티랩 온라인 학습 자료\n\n${text}`], {
       type: "text/markdown;charset=utf-8",
     }),
   );
@@ -163,7 +163,7 @@ export function ClassroomPage({ section, lessonId }) {
         group="온라인 강의"
       >
         <div className="empty">
-          <h2>데모 계정으로 체험해주세요</h2>
+          <h2>로그인 후 이용해주세요.</h2>
           <p>
             {section === "history"
               ? "로그인 후 완료한 온라인 학습 활동을 확인할 수 있습니다."
@@ -177,7 +177,7 @@ export function ClassroomPage({ section, lessonId }) {
     return (
       <Page title="강의 자료실" group="온라인 강의">
         <DemoNote>
-          직접 작성한 학습 자료 예시이며 Markdown 파일로 내려받습니다.
+          과목별 이론 요약과 실습 질문을 Markdown 파일로 내려받을 수 있습니다.
         </DemoNote>
         <div className="materials-list">
           {lessons.map((l) => (
@@ -203,8 +203,8 @@ export function ClassroomPage({ section, lessonId }) {
     return (
       <Page title="출석·수강 이력" group="온라인 강의">
         <DemoNote>
-          완료한 온라인 학습 활동을 기록합니다. 공식 출석이나 수료 인정이 아닌
-          체험용 이력입니다.
+          완료한 온라인 학습 활동을 확인하세요. 자율 학습 기록은 공식 출석이나
+          수료 인정과 별도로 관리됩니다.
         </DemoNote>
         <div className="history-summary">
           <p>
@@ -344,10 +344,10 @@ export function AdminPage({ section = "inquiries" }) {
     setFeedback("공지사항에 반영했습니다.");
   }
   return (
-    <Page title="관리자 데모">
+    <Page title="관리자">
       <DemoNote>
-        인증 없는 관리 기능 미리보기입니다. 데이터는 현재 브라우저 탭에서만
-        유지되며 실제 운영용 관리자 페이지가 아닙니다.
+        접근 권한 검증이 연결되지 않은 화면입니다. 실제 회원 정보는 입력하지 마세요.
+        변경 내용은 현재 탭에서만 유지되며 새로고침 시 초기화됩니다.
       </DemoNote>
       <nav className="tabs">
         {tabs.map(([key, label]) => (
@@ -421,7 +421,7 @@ export function AdminPage({ section = "inquiries" }) {
                   </button>
                   {confirm === row.id && (
                     <div className="delete-confirm">
-                      <span>{row.name}님의 데모 신청을 삭제할까요?</span>
+                      <span>{row.name}님의 상담 내용을 삭제할까요?</span>
                       <button
                         onClick={() => {
                           setInquiries((rows) =>
@@ -453,7 +453,7 @@ export function AdminPage({ section = "inquiries" }) {
       {section === "members" && (
         <>
           <div className="table-toolbar">
-            <span>데모 회원 {members.length}명</span>
+            <span>회원 {members.length}명</span>
             <LinkButton to="account" secondary>
               회원 등록
             </LinkButton>
@@ -494,7 +494,7 @@ export function AdminPage({ section = "inquiries" }) {
                 </button>
                 {confirm === member.id && (
                   <div className="delete-confirm">
-                    <span>{member.name}님의 데모 계정을 삭제할까요?</span>
+                    <span>{member.name}님의 계정을 삭제할까요?</span>
                     <button
                       onClick={() => {
                         setMembers((rows) =>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" fill="none">
+  <title>beauty lab</title>
+  <g stroke="#7d304d" stroke-width="2.4" stroke-linecap="square">
+    <path d="M9 7v45h17c12 0 20-7 20-17S38 19 27 19H9"/>
+    <path d="M29 7v36h25"/>
+  </g>
+  <text x="73" y="45" fill="#292526" font-family="Georgia, 'Times New Roman', serif" font-size="43" letter-spacing="-1.5">beauty lab</text>
+</svg>

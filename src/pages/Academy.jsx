@@ -17,15 +17,14 @@ export function AboutPage({ section }) {
     return (
       <Page title="강사진" group="학원소개">
         <DemoNote>
-          강사 이름과 담당 분야는 시연용 설정입니다. 이미지 속 인물은 실제
-          강사가 아닙니다.
+          분야별 담당 강사와 수업 방식을 확인하고 학습 목표에 맞는 과정을 선택하세요.
         </DemoNote>
         <div className="teacher-list">
           {teachers.map((t) => (
             <article key={t.name}>
               <img
                 src={media.teacherProfile[t.course]}
-                alt={`${t.name} 강사 소개용 생성 인물 시안`}
+                alt={`${t.name} 강사 프로필 이미지`}
               />
               <div>
                 <p className="teacher-role">{t.role}</p>
@@ -58,19 +57,18 @@ export function AboutPage({ section }) {
         <figure className="facility-view">
           <img
             src={media.facility[selected]}
-            alt={`${courseById(selected).category} 실습 환경 시안`}
+            alt={`${courseById(selected).category} 실습 공간 이미지`}
           />
           <figcaption>
             <h2>{courseById(selected).category} 실습 공간</h2>
             <p>
-              개인 실습 자리와 분야별 도구를 활용하는 교육환경 제안입니다. 작업
+              개인 실습 자리와 분야별 도구를 활용하는 교육환경입니다. 작업
               전 준비, 실습, 정리까지 수업 동선에 맞춰 구성합니다.
             </p>
           </figcaption>
         </figure>
         <DemoNote>
-          실제 학원 시설 사진이 아닌 AI 생성 콘셉트 이미지입니다. 실제 주소·시설
-          자료는 운영 시 교체해야 합니다.
+          분야별 실습 도구와 작업 동선을 살펴보세요.
         </DemoNote>
       </Page>
     );
@@ -88,8 +86,8 @@ export function AboutPage({ section }) {
         <div>
           <p>
             메이크업, 헤어, 네일아트, 피부미용, 붙임머리를 배우는 미용 전문 교육
-            사이트입니다. 온라인으로 기초 이론을 익히고 실습 수업으로 연결하는
-            교육 구성을 제안합니다.
+            브랜드입니다. 온라인으로 기초 이론을 익히고 실습 수업으로 연결해
+            기본기부터 차근차근 배웁니다.
           </p>
           <p>
             교육 목적에 따라 자격증 준비, 살롱 실무, 작품 포트폴리오 과정을
@@ -126,7 +124,7 @@ export function AboutPage({ section }) {
         </LinkButton>
       </div>
       <DemoNote>
-        가상의 미용학원 브랜드로 제작한 웹사이트 포트폴리오입니다.
+        목표와 경험에 맞는 교육과정은 상담을 통해 안내합니다.
       </DemoNote>
     </Page>
   );
@@ -140,7 +138,7 @@ export function ContactPage({ section,params=new URLSearchParams() }) {
         : "과정 상담";
   return (
     <Page title={title} group="상담예약">
-      {section==='tuition'&&<div className="tuition-options"><p>분야별 예시 비용을 확인하고 문의할 과정을 선택하세요.</p><div className="fee-table"><table><thead><tr><th>분야</th><th>예시 수강료</th><th>예시 재료비</th><th>선택</th></tr></thead><tbody>{courses.map(c=><tr key={c.id}><th scope="row">{c.category}</th><td>380,000원 ~ 상담</td><td>{c.kit.toLocaleString('ko-KR')}원</td><td><a className="text-link" href={`#contact/tuition?course=${c.id}`} aria-current={params.get('course')===c.id?'true':undefined}>{params.get('course')===c.id?'선택됨':'문의 선택'}</a></td></tr>)}</tbody></table></div><DemoNote>실제 교육비가 아닌 디자인 예시입니다. 지원금이나 자비부담액이 아닙니다.</DemoNote></div>}
+      {section==='tuition'&&<div className="tuition-options"><p>분야별 교육비을 확인하고 문의할 과정을 선택하세요.</p><div className="fee-table"><table><thead><tr><th>분야</th><th>수강료</th><th>재료비</th><th>선택</th></tr></thead><tbody>{courses.map(c=><tr key={c.id}><th scope="row">{c.category}</th><td>380,000원 ~ 상담</td><td>{c.kit.toLocaleString('ko-KR')}원</td><td><a className="text-link" href={`#contact/tuition?course=${c.id}`} aria-current={params.get('course')===c.id?'true':undefined}>{params.get('course')===c.id?'선택됨':'문의 선택'}</a></td></tr>)}</tbody></table></div><DemoNote>최종 수강료와 재료 구성은 상담에서 확인해주세요. 국비지원 자비부담액과는 별개입니다.</DemoNote></div>}
       <div className="contact-page">
         <aside>
           <h2>
@@ -152,7 +150,7 @@ export function ContactPage({ section,params=new URLSearchParams() }) {
           </h2>
           <p>
             {title === "방문 상담"
-              ? "희망 날짜와 분야를 남겨주세요. 방문 시간과 장소는 실제 운영 시 담당자 확인 후 확정하는 구성입니다."
+              ? "희망 날짜와 관심 분야를 선택해주세요. 방문 상담은 시간과 장소를 확인한 뒤 확정됩니다."
               : title === "수강료 문의"
                 ? "교육 기간, 실습 도구 보유 여부, 희망하는 과정에 따라 확인할 항목이 달라집니다."
                 : "처음 배우는 분도 관심 분야를 선택하고, 자격증·취업·취미 등 수업 목적을 알려주세요."}
@@ -172,8 +170,8 @@ export function ContactPage({ section,params=new URLSearchParams() }) {
             </div>
           </dl>
           <DemoNote>
-            실제 상담 접수가 아닌 데모입니다. 이름과 연락처는 예시로
-            입력해주세요. 서버 전송 없이 현재 탭에서만 유지됩니다.
+            입력 내용은 서버로 전송되지 않으며 현재 화면에서만 유지됩니다.
+            실제 연락처 등 개인정보는 입력하지 마세요.
           </DemoNote>
         </aside>
         <ConsultationForm key={`${title}/${params.get('course')||''}`} mode={title} course={courseById(params.get('course'))?.id||''} />
@@ -190,7 +188,7 @@ export function ContactPage({ section,params=new URLSearchParams() }) {
         <details className="faq">
           <summary>재료비는 수강료에 포함되나요?</summary>
           <p>
-            현재 예시 과정에는 수강료와 재료비를 구분해서 표시합니다. 실제 등록
+            교육과정에는 수강료와 재료비를 구분해서 표시합니다. 실제 등록
             전에는 포함 항목과 개인 도구 사용 가능 여부를 확인해야 합니다.
           </p>
         </details>
@@ -261,12 +259,12 @@ export function CommunityPage({ section = "notices", id }) {
       <Page title={work ? "작품 상세" : "작품 갤러리"} group="커뮤니티">
         {work ? (
           <article className="work-detail">
-            <img src={media.workDetail[work.id]} alt={`${work.title} 세부 표현 생성 시안`} />
+            <img src={media.workDetail[work.id]} alt={`${work.title} 세부 표현`} />
             <div>
               <span>{work.category}</span>
               <h2>{work.title}</h2>
               <p>{work.description}</p>
-              <DemoNote>실제 학생 작품이 아닌 생성 시안입니다.</DemoNote>
+              <DemoNote>작품의 색감과 표현 기법을 살펴보세요.</DemoNote>
               <LinkButton to={`courses/${work.id}`}>관련 교육과정</LinkButton>
               <p>
                 <a className="text-link" href="#community/portfolio">
@@ -296,15 +294,14 @@ export function CommunityPage({ section = "notices", id }) {
                 .filter((w) => category === "all" || w.id === category)
                 .map((w) => (
                   <a href={`#community/portfolio/${w.id}`} key={w.id}>
-                    <img src={media.gallery[w.id]} alt={`${w.title} 시안`} loading="lazy" />
+                    <img src={media.gallery[w.id]} alt={`${w.title}`} loading="lazy" />
                     <span>{w.category}</span>
                     <h2>{w.title}</h2>
                   </a>
                 ))}
             </div>
             <DemoNote>
-              작품 갤러리의 구성 예시입니다. 모든 이미지는 생성 시안이며 실제
-              수강생의 작업으로 제시하지 않습니다.
+              분야별 표현 기법과 완성 이미지를 참고하며 나만의 작품을 준비하세요.
             </DemoNote>
           </>
         )}
@@ -313,36 +310,35 @@ export function CommunityPage({ section = "notices", id }) {
   }
   if (section === "stories" && !id)
     return (
-      <Page title="수강 이야기" group="커뮤니티">
+      <Page title="수강 가이드" group="커뮤니티">
         <DemoNote>
-          아래 이야기는 후기 페이지 디자인을 위한 가상의 수강 시나리오입니다.
-          실제 후기나 취업 성과가 아닙니다.
+          수업 목적과 생활 패턴에 맞는 학습 방법을 살펴보세요.
         </DemoNote>
         <div className="story-list">
           {[
             [
               "hair",
               "직장과 병행하는 헤어 기초반",
-              "평일 저녁 수업 전에 온라인 이론을 복습하고, 실습 시간에는 기본 커트 자세를 집중적으로 연습하는 수강 사례입니다.",
+              "평일 저녁 수업 전에 온라인 이론을 복습하고, 실습 시간에는 기본 커트 자세를 집중적으로 연습하는 학습 방법입니다.",
               "목표: 미용 기초 습득",
             ],
             [
               "makeup",
               "촬영 작품을 준비하는 메이크업반",
-              "레퍼런스 사진을 분석하고 색채 계획을 만든 뒤, 촬영과 피드백을 거쳐 작품을 정리하는 수강 사례입니다.",
+              "레퍼런스 사진을 분석하고 색채 계획을 만든 뒤, 촬영과 피드백을 거쳐 작품을 정리하는 학습 방법입니다.",
               "목표: 개인 작품집 제작",
             ],
             [
               "nail",
               "주말에 배우는 네일아트반",
-              "도구 관리와 케어부터 시작해 컬러링과 젤 디자인을 하나씩 익히는 입문자의 수강 사례입니다.",
+              "도구 관리와 케어부터 시작해 컬러링과 젤 디자인을 하나씩 익히는 입문자의 학습 방법입니다.",
               "목표: 네일 실무 입문",
             ],
           ].map(([key, title, text, goal]) => (
             <article key={key}>
               <img
                 src={media.story[key]}
-                alt={`${courseById(key).category} 수업 시안`}
+                alt={`${courseById(key).category} 수업 이미지`}
               />
               <div>
                 <span>{goal}</span>
@@ -361,12 +357,12 @@ export function CommunityPage({ section = "notices", id }) {
 }
 export function PrivacyPage() {
   return (
-    <Page title="개인정보·데모 이용 안내">
+    <Page title="개인정보·이용 안내">
       <article className="legal-copy">
         <h2>실제 개인정보를 입력하지 마세요</h2>
         <p>
-          이 웹사이트는 포트폴리오 데모입니다. 상담 폼, 회원 화면에는 예시
-          이름과 예시 연락처만 입력해주세요.
+          상담 및 회원 화면에는 실제 개인정보를 입력하지 마세요.
+          현재 입력 정보는 본인 인증이나 상담 접수에 사용되지 않습니다.
         </p>
         <h2>데이터 처리</h2>
         <p>
@@ -374,15 +370,20 @@ export function PrivacyPage() {
           전송, 이메일 발송, 실제 결제는 수행하지 않습니다. 새로고침하면
           입력값이 초기화됩니다.
         </p>
-        <h2>관리자 화면</h2>
+        <h2>이벤트 표시 설정</h2>
         <p>
-          관리자 데모는 접근 제한이 없는 기능 미리보기입니다. 실제 서비스 운영
-          시에는 서버 인증, 권한 검증, 개인정보 보호 조치가 별도로 필요합니다.
+          이벤트의 ‘오늘 하루 보지 않기’를 선택하면 선택한 날짜만 브라우저에 저장합니다.
+          한국 시간 자정 이후에는 팝업이 다시 표시되며, 개인정보는 저장하지 않습니다.
+        </p>
+        <h2>관리자 화면 안내</h2>
+        <p>
+          관리자 화면에는 접근 권한 검증이 연결되어 있지 않습니다.
+          실제 개인정보나 비공개 문서는 등록하지 마세요.
         </p>
         <h2>콘텐츠</h2>
         <p>
-          브랜드, 강사, 과정 정보, 비용과 일정은 가상의 예시입니다. 이미지는 AI
-          생성 시안이며 실제 시설·인물·학생 성과를 증명하지 않습니다.
+          브랜드·강사 소개와 교육 일정·비용은 실제 운영 정보가 아닙니다.
+          이미지는 AI로 제작한 교육 분야별 참고 이미지이며 실제 시설·인물·수강생 성과를 나타내지 않습니다.
         </p>
       </article>
     </Page>

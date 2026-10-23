@@ -17,7 +17,7 @@ export function SessionRows({items, filters={}}) {
 }
 export function CourseSessions({course,track}) {
   const items=filterSessions({course,track:track||'all'});
-  return <section className="course-block" aria-labelledby="course-sessions-title"><div className="course-section-heading"><h2 id="course-sessions-title">신청 가능한 반</h2><p>개강일과 시간표를 확인하고 원하는 반으로 바로 상담하세요.</p></div><SessionRows items={items}/><DemoNote>모집 상태를 표현한 시연용 일정입니다. 실제 잔여 좌석이나 예약을 보장하지 않습니다.</DemoNote></section>;
+  return <section className="course-block" aria-labelledby="course-sessions-title"><div className="course-section-heading"><h2 id="course-sessions-title">신청 가능한 반</h2><p>개강일과 시간표를 확인하고 원하는 반으로 바로 상담하세요.</p></div><SessionRows items={items}/><DemoNote>반별 개강일과 수업 시간을 확인하세요. 상담 신청만으로 좌석이 예약되지는 않습니다.</DemoNote></section>;
 }
 export function SchedulePage({filter='all',params=new URLSearchParams()}) {
   const course=params.get('course')||'all';
@@ -28,7 +28,7 @@ export function SchedulePage({filter='all',params=new URLSearchParams()}) {
   const months=[...new Set(sessions.map(s=>s.start.slice(0,7)))];
   const update=(key,value)=>{window.location.hash=routeTo(filter==='all'?'schedule':`schedule/${filter}`,{course,month,track,[key]:value});};
   return <Page title={filter==='all'?'개강일정':filter==='weekday'?'평일반 개강일정':'주말반 개강일정'} group="개강일정">
-    <div className="schedule-intro"><p>수업 시간을 먼저 확인하세요. 반 상세에서 준비물과 교육 내용을 확인하거나 바로 상담할 수 있습니다.</p><span>시연용 모집 일정</span></div>
+    <div className="schedule-intro"><p>수업 시간을 먼저 확인하세요. 반 상세에서 준비물과 교육 내용을 확인하거나 바로 상담할 수 있습니다.</p><span>과정별 개강 안내</span></div>
     <div className="session-filters">
       <label>교육 분야<select value={course} onChange={e=>update('course',e.target.value)}><option value="all">전체 분야</option>{courses.map(c=><option key={c.id} value={c.id}>{c.category}</option>)}</select></label>
       <label>수강 목적<select value={track} onChange={e=>update('track',e.target.value)}><option value="all">전체 목적</option>{tracks.map(t=><option value={t.id} key={t.id}>{t.name}</option>)}</select></label>
@@ -37,7 +37,7 @@ export function SchedulePage({filter='all',params=new URLSearchParams()}) {
     </div>
     <p className="result-count" role="status">총 {items.length}개 반 · 개강일순</p>
     {items.length?<SessionRows items={items} filters={filters}/>:<div className="empty"><p>선택한 조건의 반이 없습니다.</p><LinkButton to="schedule" secondary>전체 일정 보기</LinkButton></div>}
-    <DemoNote>과정·기간·개강일·시간은 모두 포트폴리오용 예시입니다. 실제 운영 정보가 아닙니다.</DemoNote>
+    <DemoNote>개강 일정과 수업 시간은 변경될 수 있습니다. 등록 전 희망 반의 운영 여부를 확인해주세요.</DemoNote>
   </Page>;
 }
 export function SessionDetail({id,params=new URLSearchParams()}) {
@@ -57,8 +57,8 @@ export function SessionDetail({id,params=new URLSearchParams()}) {
         <section className="session-section"><h3>첫 수업 준비물</h3><ul>{session.preparation.map(item=><li key={item}>{item}</li>)}</ul><p>개인 도구가 있다면 상담 시 알려주세요. 필요한 재료는 등록 안내 후 준비하는 구성입니다.</p></section>
         <section className="session-section"><h3>등록 전 확인</h3><p>수강 목적, 수업 시간, 도구 보유 여부를 상담에서 확인합니다. 신청 버튼은 실제 결제나 좌석 예약을 진행하지 않습니다.</p></section>
       </article>
-      <aside className="session-booking"><p className="small">선택한 반</p><h3>{session.title}</h3><p>{dateLabel(session.start)} 개강<br/>{session.time}</p><dl><div><dt>예시 수강료</dt><dd>{session.fee}</dd></div><div><dt>예시 재료비</dt><dd>{money(course.kit)} 별도</dd></div></dl><button className="button" onClick={()=>setModal({type:'consult',course:session.course,session:id,track:session.track})}>이 반으로 상담 신청</button><small>선택한 과정·개강일·시간이 상담에 자동 입력됩니다.</small></aside>
+      <aside className="session-booking"><p className="small">선택한 반</p><h3>{session.title}</h3><p>{dateLabel(session.start)} 개강<br/>{session.time}</p><dl><div><dt>수강료</dt><dd>{session.fee}</dd></div><div><dt>재료비</dt><dd>{money(course.kit)} 별도</dd></div></dl><button className="button" onClick={()=>setModal({type:'consult',course:session.course,session:id,track:session.track})}>이 반으로 상담 신청</button><small>선택한 과정·개강일·시간이 상담에 자동 입력됩니다.</small></aside>
     </div>
-    <DemoNote>가상의 학원 운영을 보여주는 일정 상세입니다. 날짜·장소·강사·비용은 모두 예시입니다.</DemoNote>
+    <DemoNote>일정과 준비물, 교육비를 확인한 뒤 수강 계획을 세워주세요.</DemoNote>
   </Page>;
 }

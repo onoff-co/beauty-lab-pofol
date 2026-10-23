@@ -4,6 +4,7 @@ import { courseProfiles } from '../courseProfiles.js';
 import { ConsultationForm, DemoNote, LinkButton, Page, useAcademy } from '../components.jsx';
 import '../course-detail.css';
 import { CourseSessions } from './Schedule.jsx';
+import { CourseRoadmap } from '../CourseCards.jsx';
 
 export default function CourseDetail({ course, track }) {
   const { setModal } = useAcademy();
@@ -24,7 +25,7 @@ export default function CourseDetail({ course, track }) {
         <p>{selected ? selected.text : profile.introduction}</p>
         <button className="button" onClick={() => setModal({ type:'consult', course:course.id })}>과정 상담 신청</button>
       </div>
-      <img src={course.banner} alt={`${course.category} 교육 도구를 구성한 배너 시안`} width="1448" height="1086" fetchPriority="high" />
+      <img src={course.banner} alt={`${course.category} 교육 도구`} width="1448" height="1086" fetchPriority="high" />
     </div>}
     <nav className="course-switcher" aria-label={`${course.category} 세부 과정`}>
       <a href={`#courses/${course.id}`} aria-current={!selected?'page':undefined}>전체 과정</a>
@@ -33,14 +34,7 @@ export default function CourseDetail({ course, track }) {
 
     {!selected ? <section className="course-block" aria-labelledby="roadmap-title">
       <div className="course-section-heading"><h2 id="roadmap-title">수강 로드맵</h2><p>준비하려는 목표에 맞춰 세부 교육 내용을 확인하세요.</p></div>
-      <div className="course-roadmap">
-        {available.map(item => <article key={item.id}>
-          <h3>{item.name}</h3>
-          <p>{item.text}</p>
-          <ul>{topics(item).map(topic => <li key={topic}>{topic}</li>)}</ul>
-          <LinkButton to={`courses/${course.id}/${item.id}`} secondary>{item.name} 자세히</LinkButton>
-        </article>)}
-      </div>
+      <CourseRoadmap course={course} available={available} topics={topics}/>
     </section> : <>
       <section className="course-block course-goals" aria-labelledby="goals-title">
         <h2 id="goals-title">교육 목표</h2>
@@ -61,7 +55,7 @@ export default function CourseDetail({ course, track }) {
 
     <CourseSessions course={course.id} track={selected?.id}/>
     {!selected&&<><section className="course-block course-teacher text-only" aria-labelledby="teacher-title">
-      <div><h2 id="teacher-title">과정 담당 강사</h2><p className="course-teacher-name">{course.teacher} 강사</p><p>{teacher?.specialty}</p><p>{teacher?.method}</p><a className="text-link" href="#about/instructors">강사진 전체 보기</a><p className="small muted">강사 정보와 사진은 포트폴리오용 예시입니다.</p></div>
+      <div><h2 id="teacher-title">과정 담당 강사</h2><p className="course-teacher-name">{course.teacher} 강사</p><p>{teacher?.specialty}</p><p>{teacher?.method}</p><a className="text-link" href="#about/instructors">강사진 전체 보기</a><p className="small muted">분야별 수업 방식은 강사진 소개에서 확인하세요.</p></div>
     </section>
     <section className="course-block" aria-labelledby="career-title">
       <div className="course-section-heading"><h2 id="career-title">교육 후 진로</h2><p>실습 경험을 바탕으로 준비할 수 있는 분야입니다.</p></div>
@@ -69,9 +63,9 @@ export default function CourseDetail({ course, track }) {
     </section>
     <section className="course-block course-enrollment" aria-labelledby="enrollment-title">
       <h2 id="enrollment-title">수강 안내</h2>
-      <dl><div><dt>교육 기간</dt><dd>{course.weeks}주</dd></div><div><dt>수업 시간</dt><dd>{course.days}</dd></div><div><dt>다음 개강</dt><dd>{course.date.replaceAll('-','.')}</dd></div><div><dt>예시 수강료</dt><dd>380,000원 ~ 상담</dd></div><div><dt>예시 재료비</dt><dd>{money(course.kit)} 별도</dd></div><div><dt>수업 방식</dt><dd>오프라인 실습{course.id!=='extension'?' + 온라인 이론':''}</dd></div></dl>
+      <dl><div><dt>교육 기간</dt><dd>{course.weeks}주</dd></div><div><dt>수업 시간</dt><dd>{course.days}</dd></div><div><dt>다음 개강</dt><dd>{course.date.replaceAll('-','.')}</dd></div><div><dt>수강료</dt><dd>380,000원 ~ 상담</dd></div><div><dt>재료비</dt><dd>{money(course.kit)} 별도</dd></div><div><dt>수업 방식</dt><dd>오프라인 실습{course.id!=='extension'?' + 온라인 이론':''}</dd></div></dl>
       <div className="button-row">{course.id!=='extension' && <LinkButton to={`online/${course.id}`} secondary>온라인 이론 바로 보기</LinkButton>}</div>
-      <DemoNote>교육 기간·시간·개강일·수강료는 모두 디자인 시연용 예시입니다. 선택한 과정의 실제 운영 조건은 별도 확정이 필요합니다.</DemoNote>
+      <DemoNote>교육 기간과 시간, 준비물은 선택한 반에 따라 다릅니다. 등록 전 상세 내용을 확인해주세요.</DemoNote>
     </section></>}
     <section className="course-block course-inquiry" aria-labelledby="inquiry-title">
       <div className="course-section-heading"><h2 id="inquiry-title">상담예약</h2><p>{course.category} 수업의 목표와 희망 시간대를 남겨주세요.</p></div>
