@@ -36,6 +36,16 @@ test('four lessons contain complete sample learning material',()=>{
 test('notices and galleries have unique detail identifiers',()=>{
   for(const records of [noticesSeed,portfolio]) assert.equal(new Set(records.map(r=>r.id)).size,records.length);
 });
+
+test('homepage work samples use finished-work assets, not classroom or course banners',()=>{
+  for(const work of portfolio.slice(0,3)){
+    const course=courses.find(c=>c.id===work.id);
+    assert.equal(work.image,`/assets/portfolio-${work.id}.png`);
+    assert.notEqual(work.image,course.image);
+    assert.notEqual(work.image,course.banner);
+    assert.ok(existsSync(fileURLToPath(new URL(`../public${work.image}`,import.meta.url))));
+  }
+});
 test('source contains no obsolete slogan blocks or escaped break tags',()=>{
   const files=['PlatformPage.jsx','components.jsx','pages/Home.jsx','pages/Academy.jsx','pages/Education.jsx','pages/Student.jsx'];
   for(const file of files){
