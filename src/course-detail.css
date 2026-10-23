@@ -1,0 +1,51 @@
+/* Reference-led course structure; retains the shared 2:6:2 content frame. */
+.page.course-page{padding-top:0}
+.course-cover{display:grid;grid-template-columns:1fr 1fr;background:var(--blush);min-height:320px}
+.course-cover-copy{padding:40px 32px;display:flex;flex-direction:column;align-items:start;justify-content:center}
+.course-cover-name{font-size:clamp(28px,2.5vw,44px);font-weight:700;letter-spacing:-.05em;line-height:1.3;margin-bottom:20px;text-wrap:balance}
+.course-cover-copy>p:not(.course-cover-name){font-size:16px;margin-bottom:24px;max-width:400px}
+.course-cover img{width:100%;height:auto;aspect-ratio:4/3;max-height:380px;object-fit:contain;object-position:center;align-self:center}
+.course-switcher{display:flex;flex-wrap:wrap;background:var(--soft);border-bottom:1px solid var(--line)}
+.course-switcher a{flex:1;min-width:0;text-align:center;padding:18px 10px;min-height:52px;font-size:15px;border-bottom:3px solid transparent}
+.course-switcher a[aria-current=page]{color:var(--brand);font-weight:700;border-bottom-color:var(--brand);background:var(--ground)}
+.course-block{margin-top:64px}
+.course-section-heading{margin-bottom:28px}
+.course-block h2{font-size:28px;font-weight:700;margin-bottom:12px}
+.course-section-heading>p{font-size:16px;margin:0}
+.course-roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+.course-roadmap article{display:flex;flex-direction:column;padding:28px 24px;background:var(--soft);border-top:3px solid var(--pink)}
+.course-roadmap h3{font-size:24px;margin-bottom:16px}
+.course-roadmap p{font-size:15px;margin-bottom:12px}
+.course-roadmap ul{list-style:none;padding:0;margin:0 0 24px;font-size:14px}
+.course-roadmap li{padding:9px 0;margin:0;border-bottom:1px solid var(--line)}
+.course-roadmap .button{margin-top:auto;width:100%;padding-inline:10px}
+.course-goals{display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:start}
+.course-goals ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;list-style:none;margin:0;padding:0}
+.course-goals li{margin:0;padding:24px 20px;background:var(--soft);font-size:16px;display:flex;align-items:center}
+.course-curriculum{display:grid;gap:12px}
+.course-curriculum article{display:grid;grid-template-columns:100px 1fr;border:1px solid var(--line)}
+.course-curriculum article>span{display:flex;justify-content:center;align-items:center;padding:16px 10px;background:var(--brand);color:var(--ground);font-size:14px;text-align:center}
+.course-curriculum article>div{padding:20px 24px}
+.course-curriculum h3{font-size:20px;margin-bottom:6px}
+.course-curriculum p{font-size:16px;margin:0}
+.course-outcome{display:grid;grid-template-columns:180px 1fr;gap:28px;padding:32px;background:var(--blush);align-items:start}
+.course-outcome h3{font-size:24px;margin-bottom:12px}
+.course-outcome p{font-size:16px;margin-bottom:12px}
+.course-teacher{display:grid;grid-template-columns:38% 1fr;gap:40px;align-items:center;background:var(--soft)}
+.course-teacher>img{width:100%;height:320px;object-position:center 30%}
+.course-teacher>div{padding:28px 32px 28px 0}
+.course-teacher-name{font-size:24px;font-weight:600;margin-block:20px 12px}
+.course-teacher p{margin-bottom:12px}
+.course-teacher .small{margin:16px 0 0}
+.course-careers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.course-careers article{padding:24px;background:var(--soft)}
+.course-careers h3{font-size:21px;margin-bottom:12px}
+.course-careers p{font-size:16px;margin:0}
+.course-enrollment>dl{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--ink);margin-top:24px}
+.course-enrollment>dl>div{display:grid;grid-template-columns:100px 1fr;gap:16px;border-bottom:1px solid var(--line);padding:18px 16px;font-size:15px}
+.course-enrollment dt{color:var(--muted)}
+.course-inquiry{background:var(--soft);padding:36px}
+.course-inquiry .consult-form{max-width:none}
+@media(max-width:1599px){.course-cover-name{font-size:30px}.course-cover-copy{padding:28px}.course-goals{grid-template-columns:1fr;gap:12px}.course-goals h2{margin:0}.course-enrollment>dl>div{grid-template-columns:80px 1fr;padding-inline:12px;gap:10px}.course-roadmap article{padding:24px 20px}.course-careers{gap:16px}.course-careers article{padding:22px 18px}}
+@media(max-width:800px){.course-block{margin-top:44px}.course-cover{min-height:280px}.course-cover-copy{padding:24px}.course-cover-name{font-size:28px}.course-cover-copy>p:not(.course-cover-name){font-size:14px}.course-cover img{max-height:340px}.course-roadmap{gap:12px}.course-roadmap h3{font-size:21px}.course-block h2{font-size:25px}.course-goals li{padding:20px 16px}.course-teacher{gap:24px}.course-teacher>div{padding-right:24px}.course-outcome{grid-template-columns:150px 1fr;padding:24px;gap:20px}}
+@media(max-width:600px){.course-cover{grid-template-columns:1fr;min-height:0}.course-cover img{grid-row:1;height:auto;max-height:280px;object-position:center}.course-cover-copy{padding:24px}.course-cover-name{font-size:28px;margin-bottom:12px}.course-cover-copy>p:not(.course-cover-name){margin-bottom:20px;font-size:15px}.course-switcher a{font-size:13px;padding:14px 5px;min-height:48px}.course-block{margin-top:36px}.course-section-heading{margin-bottom:20px}.course-section-heading>p{font-size:15px}.course-roadmap{grid-template-columns:1fr;gap:14px}.course-roadmap article{padding:24px}.course-roadmap ul{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.course-roadmap .button{width:auto;align-self:start;padding-inline:20px}.course-goals ul{grid-template-columns:1fr;gap:10px}.course-goals li{font-size:15px;padding:18px 20px}.course-curriculum article{grid-template-columns:70px 1fr}.course-curriculum article>span{font-size:13px;padding:10px 6px}.course-curriculum article>div{padding:18px 16px}.course-curriculum h3{font-size:18px}.course-curriculum p{font-size:14px}.course-outcome{grid-template-columns:1fr;gap:8px;padding:24px}.course-outcome h3{font-size:21px}.course-outcome p{font-size:15px}.course-teacher{grid-template-columns:1fr;gap:0}.course-teacher>img{height:260px}.course-teacher>div{padding:24px}.course-teacher p{font-size:15px}.course-teacher .course-teacher-name{font-size:22px}.course-careers{grid-template-columns:1fr;gap:12px}.course-careers h3{font-size:20px}.course-careers p{font-size:15px}.course-enrollment>dl{grid-template-columns:1fr;margin-top:18px}.course-enrollment>dl>div{padding:16px 8px;font-size:14px}.course-inquiry{padding:24px 20px}}

@@ -1,0 +1,12 @@
+node_modules
+dist/
+artifacts/
+.taste-skill/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+.DS_Store
+Thumbs.db
